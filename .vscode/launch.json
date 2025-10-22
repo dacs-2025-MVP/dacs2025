@@ -1,0 +1,34 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-BackendApplication<dacs-backend>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.dacs.backend.BackendApplication",
+            "projectName": "dacs-backend",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-BffApplication<dacs-bff>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.dacs.bff.BffApplication",
+            "projectName": "dacs-bff",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ConectorApplication<dacs-conector>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.dacs.conector.ConectorApplication",
+            "projectName": "dacs-conector",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

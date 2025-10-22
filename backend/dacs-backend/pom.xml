@@ -100,6 +100,8 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<fork>true</fork>
+					<jvmArguments>-Duser.timezone=America/Argentina/Buenos_Aires</jvmArguments>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
