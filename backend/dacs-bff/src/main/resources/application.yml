@@ -1,0 +1,22 @@
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 60000
+        readTimeout: 60000
+        loggerLevel: basic
+      apiconectorclient:
+        url: '${MS_CONECTOR_URL:http://localhost:9002/conector}'
+      apiBackendClient:
+        url: '${MS_BACKEND_URL:http://localhost:9003/backend}'
+
+management:
+  endpoints:
+    web:
+      base-path: /metrics
+      exposure:
+        include: "health,info"
+server:
+  port :  9001
+  servlet:
+    contextPath: /bff
