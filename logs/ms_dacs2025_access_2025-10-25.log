@@ -1,0 +1,2 @@
+[25/Oct/2025:11:16:54 -0300] 0:0:0:0:0:0:0:1 "GET /connector/metrics/health HTTP/1.1" 404 (110432 ms)
+[25/Oct/2025:11:16:54 -0300] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 404 (2551 ms)

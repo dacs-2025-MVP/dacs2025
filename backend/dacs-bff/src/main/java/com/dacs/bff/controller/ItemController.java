@@ -29,8 +29,8 @@ public class ItemController {
 	}
 	
 	
-	@GetMapping(value = "/items/{id}")
-    public  ItemDto getItems(@PathVariable Integer id) {
+    @GetMapping(value = "/{id}")
+    public ItemDto getItems(@PathVariable Integer id) {
 		log.info("Ingrese a homecontroller getItems");	
 		try {
 			return apiConectorService.getItemById(id);
