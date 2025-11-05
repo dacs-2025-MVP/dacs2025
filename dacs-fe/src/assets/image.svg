@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="64" viewBox="0 0 240 64" role="img" aria-label="Taller Mecánico">
+  <rect width="240" height="64" rx="8" fill="#ffffff" />
+  <g transform="translate(12,10)" fill="#2b8ed6" stroke="#2b8ed6">
+    <path d="M20 6a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H8a2 2 0 0 0-2 2v6h18V10a2 2 0 0 0-2-2h-4V6z"/>
+  </g>
+  <text x="72" y="40" font-family="Segoe UI, Roboto, Arial" font-size="20" fill="#2c3e50">Taller Mecánico</text>
+</svg>

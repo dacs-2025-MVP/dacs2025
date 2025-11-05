@@ -1,0 +1,22 @@
+.option-wrapper{
+  min-height: calc(100vh - 80px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2rem;
+  background: #f5f7fb;
+}
+
+.option-card{
+  background:white;
+  border-radius:8px;
+  padding:2rem;
+  box-shadow: 0 8px 32px rgba(11,22,45,0.04);
+  max-width:720px;
+  width:100%;
+  text-align:center;
+}
+
+.not-logged p{ color:#6b7280 }
+.login-btn{ background:#2b8ed6; color:white; border:none; padding:8px 12px; border-radius:6px }
+.back-link{ display:inline-block; margin-top:1rem; color:#6b7280 }

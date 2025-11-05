@@ -1,0 +1,16 @@
+<div class="option-wrapper">
+  <div class="option-card">
+    <h2>{{ title }}</h2>
+
+    <div *ngIf="!keycloak.isLoggedIn()" class="not-logged">
+      <p>Debe iniciar sesión para acceder a esta sección.</p>
+      <button (click)="login()" class="login-btn">Iniciar Sesión</button>
+    </div>
+
+    <div *ngIf="keycloak.isLoggedIn()" class="content">
+      <p>Contenido de la sección <strong>{{ title }}</strong>. Aquí podes agregar las vistas específicas.</p>
+    </div>
+
+    <a routerLink="/home" class="back-link">← Volver al inicio</a>
+  </div>
+</div>

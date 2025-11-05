@@ -15,10 +15,9 @@ import { KeycloakService } from '../core/services/keycloak.service';
 export class HomeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   
-  title = 'DACS Frontend - Pantalla Principal';
+  title = 'Gestión de opciones';
+  subtitle = 'Seleccione una';
   isLoggedIn = false;
-  hasRoleA = false;
-  hasRoleB = false;
 
   constructor(public keycloakService: KeycloakService) {}
 
@@ -34,7 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private checkLoginStatus(): void {
     this.isLoggedIn = this.keycloakService.isLoggedIn();
-    this.updateRoleStatus();
+    // roles can be handled by individual pages; keep simple here
   }
 
   private subscribeToUserProfile(): void {
@@ -42,31 +41,21 @@ export class HomeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.isLoggedIn = this.keycloakService.isLoggedIn();
-        this.updateRoleStatus();
+        // react to profile changes if needed
       });
   }
 
-  private updateRoleStatus(): void {
-    this.hasRoleA = this.keycloakService.hasRole('ROLE-A');
-    this.hasRoleB = this.keycloakService.hasRole('ROLE-B');
-  }
 
   login(): void {
     this.keycloakService.login();
   }
 
-  canAccessTableGrid(): boolean {
-    return this.isLoggedIn && this.hasRoleA;
+  logout(): void {
+    this.keycloakService.logout();
   }
 
-  canAccessDashboard(): boolean {
-    return this.isLoggedIn && this.hasRoleB;
-  }
-
-  getAccessMessage(role: string): string {
-    if (!this.isLoggedIn) {
-      return 'Inicia sesión para acceder';
-    }
-    return `Se requiere ${role} para acceder`;
+  // Helper to check login status before navigating
+  canAccess(): boolean {
+    return this.isLoggedIn;
   }
 }

@@ -1,23 +1,19 @@
 <header class="header">
   <div class="header-container">
-    <!-- Logo y título -->
+    <!-- Logo / imagen del taller (colocar image.png en assets) -->
     <div class="header-brand">
       <a routerLink="/home" class="brand-link">
-        <div class="brand-icon">🔐</div>
-        <span class="brand-text">DACS Frontend</span>
+  <!-- intenta cargar image.png y si no está, cae a image.svg si lo agregás -->
+  <img src="assets/image.png" alt="Taller" class="brand-image" onerror="this.onerror=null;this.src='assets/image.svg'"/>
       </a>
     </div>
 
-    <!-- Navegación principal -->
-    <nav class="header-nav">
-      <a routerLink="/home" routerLinkActive="active" class="nav-link">
-        <span class="nav-icon">🏠</span>
-        Inicio
-      </a>
-    </nav>
+    <!-- Navegación principal (ocultada: se removió la casita 'home' por pedido) -->
+    <nav class="header-nav" style="display:none"></nav>
 
     <!-- Área de usuario -->
     <div class="header-user">
+      <!-- Botón rápido removido (ahora se muestra inline junto al nombre de usuario) -->
       <!-- Usuario no logueado -->
       <div *ngIf="!isLoggedIn" class="user-not-logged">
         <button (click)="login()" class="login-button">
@@ -35,11 +31,16 @@
           </div>
           <div class="user-details">
             <span class="user-name">{{ getFullName() }}</span>
-            <span class="user-role">{{ getUserRoles().join(', ') }}</span>
           </div>
-          <div class="user-arrow" [class.rotated]="showUserMenu">
-            ▼
-          </div>
+          <!-- Logout inline with SVG + text; stops propagation so it doesn't open the menu -->
+          <button *ngIf="isLoggedIn" (click)="logout(); $event.stopPropagation()" type="button" class="logout-inline" aria-label="Cerrar sesión" title="Cerrar sesión">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <path d="M16 17l5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21 12H9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M13 5H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="logout-text">Cerrar sesión</span>
+          </button>
         </div>
 
         <!-- Menú desplegable del usuario -->
@@ -62,14 +63,17 @@
           <div class="menu-section">
             <h4 class="menu-section-title">Roles</h4>
             <div class="menu-roles">
-              <span 
-                *ngFor="let role of getUserRoles()" 
-                class="role-badge"
-                [class.role-a]="role === 'ROLE-A'"
-                [class.role-b]="role === 'ROLE-B'"
-              >
-                {{ role }}
-              </span>
+              <ng-container *ngFor="let role of getUserRoles(); let i = index">
+                <span 
+                  *ngIf="i < 2"
+                  class="role-badge"
+                  [class.role-a]="role === 'ROLE-A'"
+                  [class.role-b]="role === 'ROLE-B'"
+                >
+                  {{ role }}
+                </span>
+              </ng-container>
+              <span *ngIf="getUserRoles().length > 2" class="role-more">...</span>
             </div>
           </div>
 

@@ -80,6 +80,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this.keycloakService.getUserRoles();
   }
 
+  /**
+   * Returns a summary string for roles (first `max` roles then '...')
+   */
+  getUserRolesSummary(max = 2): string {
+    const roles = this.getUserRoles() || [];
+    if (!roles.length) return '';
+    if (roles.length <= max) return roles.join(', ');
+    return `${roles.slice(0, max).join(', ')}, ...`;
+  }
+
   hasRole(role: string): boolean {
     return this.keycloakService.hasRole(role);
   }
