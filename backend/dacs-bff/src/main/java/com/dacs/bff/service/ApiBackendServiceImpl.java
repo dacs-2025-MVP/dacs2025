@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dacs.bff.api.client.ApiBackendClient;
 import com.dacs.bff.dto.AlumnoDto;
+import com.dacs.bff.dto.UsuarioDto;
 
 @Service
 public class ApiBackendServiceImpl implements ApiBackendService{
@@ -47,6 +48,26 @@ public class ApiBackendServiceImpl implements ApiBackendService{
 	public AlumnoDto deleteAlumno(Long id) throws Exception {
 		//TODO validar parametro y lanzar exepcion
 		return apiBackendClient.delete(id);
+	}
+
+	@Override
+	public java.util.List<UsuarioDto> getUsuarios() {
+		return apiBackendClient.usuarios();
+	}
+
+	@Override
+	public UsuarioDto getUsuarioById(Long id) throws Exception {
+		return apiBackendClient.usuarioById(id);
+	}
+
+	@Override
+	public void deleteUsuario(Long id) throws Exception {
+		apiBackendClient.deleteUsuario(id);
+	}
+
+	@Override
+	public UsuarioDto createUsuario(UsuarioDto dto) throws Exception {
+		return apiBackendClient.saveUsuario(dto);
 	}
 
 

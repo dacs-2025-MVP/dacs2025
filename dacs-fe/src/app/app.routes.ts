@@ -16,7 +16,10 @@ export const routes: Routes = [
     canActivate: [RoleBGuard]
   },
   { path: 'vehiculos', loadComponent: () => import('./options/option-page').then(m => m.OptionPageComponent), data: { title: 'Vehículos' } },
-  { path: 'clientes', loadComponent: () => import('./options/option-page').then(m => m.OptionPageComponent), data: { title: 'Clientes' } },
+  // Clientes page (clients list)
+  { path: 'clientes/new', loadComponent: () => import('./clientes/clientes-create-page').then(m => m.ClientesCreatePageComponent), data: { title: 'Nuevo cliente' } },
+  { path: 'clientes', loadComponent: () => import('./clientes/clientes-page').then(m => m.ClientesPageComponent), data: { title: 'Clientes' } },
+  // Placeholder for Turnos (will implement Turnos view later)
   { path: 'turnos', loadComponent: () => import('./options/option-page').then(m => m.OptionPageComponent), data: { title: 'Turnos' } },
   { path: 'usuarios', loadComponent: () => import('./options/option-page').then(m => m.OptionPageComponent), data: { title: 'Usuarios' } },
   { path: '**', redirectTo: '/home' }

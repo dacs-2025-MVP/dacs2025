@@ -1,0 +1,13 @@
+.create-wrapper{display:flex;justify-content:center;padding:28px}
+.create-card{width:760px;background:#fff;border:1px solid #e0e6ea;padding:22px;border-radius:6px}
+.create-title{font-weight:700;color:#333;margin:0 0 12px}
+.form-shell{display:flex;gap:20px;padding:18px;border:1px solid #e6edf0;background:#f7fbfd;border-radius:4px}
+.left{width:220px;display:flex;align-items:center;justify-content:center}
+.avatar-large{width:120px;height:120px;border-radius:6px;display:flex;align-items:center;justify-content:center}
+.right{flex:1;display:flex;flex-direction:column;gap:12px;padding-top:6px}
+.form-row{display:flex;align-items:center;gap:16px}
+.form-row label{width:110px;color:#4b5156}
+.form-row input{flex:1;padding:8px;border:1px solid #d6dfe6;border-radius:4px}
+.create-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:18px}
+.save-btn{background:#2d9cff;color:#fff;padding:8px 14px;border-radius:6px;border:none}
+.cancel-btn{background:#fff;color:#2d9cff;padding:8px 14px;border-radius:6px;border:1px solid #d6dfe6}

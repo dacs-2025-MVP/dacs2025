@@ -3,6 +3,7 @@ package com.dacs.bff.service;
 import java.util.List;
 
 import com.dacs.bff.dto.AlumnoDto;
+import com.dacs.bff.dto.UsuarioDto;
 
 public interface ApiBackendService {
 
@@ -17,4 +18,12 @@ public interface ApiBackendService {
 	public AlumnoDto updateAlumno(AlumnoDto alumno) throws Exception;
 
 	public AlumnoDto deleteAlumno(Long id) throws Exception;
+
+	public List<UsuarioDto> getUsuarios();
+
+	public UsuarioDto getUsuarioById(Long id) throws Exception;
+
+	public UsuarioDto createUsuario(UsuarioDto dto) throws Exception;
+
+	public void deleteUsuario(Long id) throws Exception;
 }

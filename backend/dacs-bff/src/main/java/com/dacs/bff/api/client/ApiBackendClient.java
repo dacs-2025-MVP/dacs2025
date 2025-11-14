@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.dacs.bff.dto.AlumnoDto;
 import com.dacs.bff.dto.BuildInfoDTO;
+import com.dacs.bff.dto.UsuarioDto;
 
 
 @FeignClient(
@@ -41,4 +42,17 @@ public interface ApiBackendClient {
     
     @DeleteMapping("/alumno/{id}")
     AlumnoDto delete(@PathVariable("id") Long id);
+
+    // Usuarios endpoints (proxied to backend)
+    @GetMapping("/usuarios")
+    List<UsuarioDto> usuarios();
+
+    @GetMapping("/usuarios/{id}")
+    UsuarioDto usuarioById(@PathVariable("id") Long id);
+    
+    @PostMapping("/usuarios")
+    UsuarioDto saveUsuario(@RequestBody UsuarioDto usuario);
+
+    @DeleteMapping("/usuarios/{id}")
+    void deleteUsuario(@PathVariable("id") Long id);
 }

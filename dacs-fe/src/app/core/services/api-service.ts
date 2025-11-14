@@ -5,7 +5,7 @@ import { BaseApiService } from './base-api.service';
 import { IRequestTest } from '../models/irequest-test';
 import { ITestResponse } from '../models/iresponse';
 import { IApiResponse, IStatusResponse } from '../models/api-response';
-import { API_ENDPOINTS } from '../constants/api-endpoints';
+import { API_ENDPOINTS, CLIENTES_ENDPOINTS } from '../constants/api-endpoints';
 import { environment } from '../../../environments/environment';
 
 /**
@@ -80,5 +80,28 @@ export class ApiService extends BaseApiService {
    */
   getCurrentUser(): Observable<IApiResponse<any>> {
     return this.get<IApiResponse<any>>(API_ENDPOINTS.BFF.USER);
+  }
+
+  /**
+   * Obtiene la lista de clientes desde el BFF (backend path: /usuarios)
+   */
+  getClientes(): Observable<IApiResponse<any>> {
+    // usamos la constante CLIENTES_ENDPOINTS que apunta al path real
+    return this.get<IApiResponse<any>>(CLIENTES_ENDPOINTS.LIST);
+  }
+
+  /**
+   * Elimina un cliente por id
+   */
+  deleteCliente(id: number): Observable<void> {
+    const endpoint = `${CLIENTES_ENDPOINTS.LIST}/${id}`;
+    return this.delete<void>(endpoint);
+  }
+
+  /**
+   * Crea un nuevo cliente (proxied to backend /usuarios)
+   */
+  createCliente(payload: any): Observable<any> {
+    return this.post<any>(CLIENTES_ENDPOINTS.LIST, payload);
   }
 }

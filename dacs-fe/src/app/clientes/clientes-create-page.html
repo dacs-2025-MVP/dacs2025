@@ -1,0 +1,43 @@
+<div class="create-wrapper">
+  <div class="create-card">
+    <h3 class="create-title">Nuevo cliente</h3>
+
+    <div class="form-shell">
+      <div class="left">
+        <div class="avatar-large" aria-hidden="true">
+          <!-- avatar placeholder SVG with plus -->
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5z" fill="#2f3940"/>
+            <path d="M4 20c0-2.761 3.582-5 8-5s8 2.239 8 5v1H4v-1z" fill="#2f3940" opacity="0.9"/>
+            <circle cx="19" cy="19" r="3" fill="#2d9cff"/>
+            <path d="M19 17v4M17 19h4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="form-row">
+          <label>Nombre</label>
+          <input [(ngModel)]="cliente.nombre" />
+        </div>
+        <div class="form-row">
+          <label>Teléfono</label>
+          <input [(ngModel)]="cliente.num_telefono" />
+        </div>
+        <div class="form-row">
+          <label>E-mail</label>
+          <input [(ngModel)]="cliente.correo" />
+        </div>
+        <div class="form-row">
+          <label>Documento</label>
+          <input [(ngModel)]="cliente.dni" />
+        </div>
+      </div>
+    </div>
+
+    <div class="create-actions">
+      <button class="save-btn" (click)="guardar()" [disabled]="saving">Guardar</button>
+      <button class="cancel-btn" (click)="cancelar()">Cancelar</button>
+    </div>
+  </div>
+</div>

@@ -115,14 +115,15 @@ export class BaseApiService {
     if (endpoint.startsWith('http')) {
       return endpoint;
     }
-    
-    // Si el endpoint comienza con '/', no añadir barra adicional
-    if (endpoint.startsWith('/')) {
-      return `${this.baseUrl}${endpoint}`;
+    // Ensure we don't break the protocol when joining (preserve 'http://' or 'https://')
+    const base = this.baseUrl.replace(/\/+$|\s+/g, '');
+    const ep = endpoint.replace(/^\/+/, '');
+    // If base starts with http(s):// keep it intact and join with a single slash
+    if (/^https?:\/\//i.test(base)) {
+      return `${base.replace(/\/+$/, '')}/${ep}`;
     }
-    
-    // Construir URL normal
-    return `${this.baseUrl}/${endpoint}`.replace(/\/+/g, '/');
+    // Otherwise, build a normal absolute URL
+    return `${base}/${ep}`;
   }
 
   /**

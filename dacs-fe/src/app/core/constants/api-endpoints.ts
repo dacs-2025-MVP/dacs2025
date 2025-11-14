@@ -11,12 +11,27 @@ export const API_ENDPOINTS = {
     DASHBOARD: 'dashboard'
   },
   
+  // Usuarios (clientes)
+  USUARIOS: {
+    LIST: 'usuarios'
+  },
+  
   // Assets locales
   ASSETS: {
     TEST_DATA: 'assets/json/test.json',
     CONFIG: 'assets/config/app-config.json'
   }
 } as const;
+
+/**
+ * Cliente endpoints (frontend naming) - los paths reales en el backend son `/usuarios`.
+ */
+export const CLIENTES_ENDPOINTS = {
+  // Use the '/clientes' path on the BFF for frontend clients flows. The BFF
+  // proxies to backend /usuarios as needed.
+  LIST: 'clientes'
+} as const;
+
 
 /**
  * Constantes para headers HTTP
