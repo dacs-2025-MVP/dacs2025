@@ -30,6 +30,8 @@ export const CLIENTES_ENDPOINTS = {
   // Use the '/clientes' path on the BFF for frontend clients flows. The BFF
   // proxies to backend /usuarios as needed.
   LIST: 'clientes'
+  ,
+  VERIFY: 'clientes/verify'
 } as const;
 
 

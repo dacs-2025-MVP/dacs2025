@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dacs.bff.api.client.ApiBackendClient;
+import com.dacs.bff.api.client.ApiConectorClient;
 import com.dacs.bff.dto.AlumnoDto;
 import com.dacs.bff.dto.UsuarioDto;
 
@@ -14,6 +15,9 @@ public class ApiBackendServiceImpl implements ApiBackendService{
 
 	@Autowired
 	private ApiBackendClient apiBackendClient;
+
+	@Autowired
+	private ApiConectorClient apiConectorClient;
 	
 	@Override
 	public String ping() {
@@ -68,6 +72,11 @@ public class ApiBackendServiceImpl implements ApiBackendService{
 	@Override
 	public UsuarioDto createUsuario(UsuarioDto dto) throws Exception {
 		return apiBackendClient.saveUsuario(dto);
+	}
+
+	@Override
+	public java.util.Map<String, Object> verifyDni(String documentNumber) throws Exception {
+		return apiConectorClient.verifikByDni(documentNumber);
 	}
 
 

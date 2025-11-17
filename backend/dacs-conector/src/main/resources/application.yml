@@ -18,3 +18,8 @@ server:
   port :  9002
   servlet:
     contextPath: /conector
+
+verifik:
+  api:
+    url: ${VERIFIK_API_URL:https://api.verifik.co/v2/ar/cedula}
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTllZmRmMjY5NDE1NmFkMzVkNTY3NyIsImVtYWlsIjoibHVjYXNmcmFudG9uZUBnbWFpbC5jb20iLCJwIjoiNjMzMjk0MWNjZGU0ZjcxOWQ5YzAwZjllIiwicGYiOiI2MzMyOTQxY2NkZTRmNzE5ZDljMDBmOWYiLCJhY2Nlc3NUeXBlIjoibG9naW5fZW1haWwiLCJleHBpcmVzQXQiOiIyMDI1LTExLTE2IDE1OjUzOjIwIiwiaWF0IjoxNzYzMzA3NTAwfQ.DyXAzNogoLbPpewtK_0N6FHwUaLc7kHxuq-_pNDonq4

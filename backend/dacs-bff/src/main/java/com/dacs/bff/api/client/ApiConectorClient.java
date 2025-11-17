@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.dacs.bff.dto.ItemDto;
 
@@ -17,4 +18,7 @@ public interface ApiConectorClient {
 	   String ping();
 	   @GetMapping("/items")
 	   List<ItemDto> items();
+
+	@GetMapping("/verifik/ar/{documentNumber}")
+	java.util.Map<String, Object> verifikByDni(@PathVariable("documentNumber") String documentNumber);
 }

@@ -47,4 +47,9 @@ public class UsuarioController {
         UsuarioDto created = apiBackendService.createUsuario(dto);
         return ResponseEntity.ok(created);
     }
+
+    @GetMapping("/verify/{dni}")
+    public ResponseEntity<java.util.Map<String, Object>> verifyDni(@PathVariable("dni") String dni) throws Exception {
+        return ResponseEntity.ok(apiBackendService.verifyDni(dni));
+    }
 }

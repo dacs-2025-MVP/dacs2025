@@ -20,8 +20,38 @@ export class ClientesCreatePageComponent {
   };
 
   saving = false;
+  isVerifying = false;
+  verifyError: string | null = null;
 
   constructor(private api: ApiService, private router: Router) {}
+
+  verificar(): void {
+    const dni = this.cliente.dni;
+    if (!dni) {
+      alert('Ingrese un documento para verificar');
+      return;
+    }
+    this.isVerifying = true;
+    this.verifyError = null;
+
+    this.api.verifyDni(dni).subscribe({
+      next: (resp) => {
+        this.isVerifying = false;
+        const fullName = resp?.data?.fullName || resp?.fullName || resp?.full_name || '';
+        if (fullName) {
+          this.cliente.nombre = fullName;
+        } else {
+          this.verifyError = 'No se encontró nombre para el DNI proporcionado';
+        }
+      },
+      error: (err) => {
+        this.isVerifying = false;
+        console.error('Error verificando DNI', err);
+        // show friendly message if we have structured error
+        this.verifyError = err?.errorDescription || err?.message || 'Error al verificar DNI';
+      }
+    });
+  }
 
   cancelar(): void {
     this.router.navigate(['/home']);

@@ -104,4 +104,9 @@ export class ApiService extends BaseApiService {
   createCliente(payload: any): Observable<any> {
     return this.post<any>(CLIENTES_ENDPOINTS.LIST, payload);
   }
+
+  verifyDni(documentNumber: string): Observable<any> {
+    const endpoint = `${CLIENTES_ENDPOINTS.VERIFY}/${documentNumber}`;
+    return this.get<any>(endpoint);
+  }
 }
