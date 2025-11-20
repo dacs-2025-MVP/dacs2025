@@ -19,6 +19,6 @@ public interface ApiConectorClient {
 	   @GetMapping("/items")
 	   List<ItemDto> items();
 
-	@GetMapping("/verifik/ar/{documentNumber}")
-	java.util.Map<String, Object> verifikByDni(@PathVariable("documentNumber") String documentNumber);
+	@GetMapping("/nosis/ar/{documentNumber}")
+	java.util.Map<String, Object> nosisByDni(@PathVariable("documentNumber") String documentNumber);
 }

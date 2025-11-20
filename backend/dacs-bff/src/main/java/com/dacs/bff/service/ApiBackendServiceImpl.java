@@ -76,7 +76,7 @@ public class ApiBackendServiceImpl implements ApiBackendService{
 
 	@Override
 	public java.util.Map<String, Object> verifyDni(String documentNumber) throws Exception {
-		return apiConectorClient.verifikByDni(documentNumber);
+		return apiConectorClient.nosisByDni(documentNumber);
 	}
 
 
