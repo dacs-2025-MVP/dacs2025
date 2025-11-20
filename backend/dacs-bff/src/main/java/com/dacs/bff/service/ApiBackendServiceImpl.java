@@ -11,14 +11,14 @@ import com.dacs.bff.dto.AlumnoDto;
 import com.dacs.bff.dto.UsuarioDto;
 
 @Service
-public class ApiBackendServiceImpl implements ApiBackendService{
+public class ApiBackendServiceImpl implements ApiBackendService {
 
 	@Autowired
 	private ApiBackendClient apiBackendClient;
 
 	@Autowired
 	private ApiConectorClient apiConectorClient;
-	
+
 	@Override
 	public String ping() {
 		return apiBackendClient.ping();
@@ -26,7 +26,7 @@ public class ApiBackendServiceImpl implements ApiBackendService{
 
 	@Override
 	public AlumnoDto getAlumnoById(Long id) throws Exception {
-		//TODO validar parametro y lanzar exepcion
+		// TODO validar parametro y lanzar exepcion
 		return apiBackendClient.alumnoById(id);
 	}
 
@@ -38,19 +38,19 @@ public class ApiBackendServiceImpl implements ApiBackendService{
 
 	@Override
 	public AlumnoDto savesAlumno(AlumnoDto alumno) throws Exception {
-		//TODO validar parametro y lanzar exepcion
+		// TODO validar parametro y lanzar exepcion
 		return apiBackendClient.save(alumno);
 	}
 
 	@Override
 	public AlumnoDto updateAlumno(AlumnoDto alumno) throws Exception {
-		//TODO validar parametro y lanzar exepcion
+		// TODO validar parametro y lanzar exepcion
 		return apiBackendClient.update(alumno);
 	}
 
 	@Override
 	public AlumnoDto deleteAlumno(Long id) throws Exception {
-		//TODO validar parametro y lanzar exepcion
+		// TODO validar parametro y lanzar exepcion
 		return apiBackendClient.delete(id);
 	}
 
@@ -75,10 +75,21 @@ public class ApiBackendServiceImpl implements ApiBackendService{
 	}
 
 	@Override
-	public java.util.Map<String, Object> verifyDni(String documentNumber) throws Exception {
-		return apiConectorClient.nosisByDni(documentNumber);
+	public UsuarioDto updateUsuario(Long id, UsuarioDto dto) throws Exception {
+		return apiBackendClient.updateUsuario(id, dto);
 	}
 
-
+	@Override
+	public java.util.Map<String, Object> verifyDni(String documentNumber) throws Exception {
+		try {
+			return apiConectorClient.nosisByDni(documentNumber);
+		} catch (Exception e) {
+			// Log and return a friendly error response so BFF does not hang the frontend
+			java.util.Map<String, Object> err = new java.util.HashMap<>();
+			err.put("error", true);
+			err.put("message", "Error verificando DNI: " + e.getMessage());
+			return err;
+		}
+	}
 
 }

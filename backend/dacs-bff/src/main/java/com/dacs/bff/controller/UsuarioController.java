@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping({"/usuarios", "/clientes"})
+@RequestMapping({ "/usuarios", "/clientes" })
 @RequiredArgsConstructor
 public class UsuarioController {
 
@@ -43,9 +43,17 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDto> create(@org.springframework.web.bind.annotation.RequestBody UsuarioDto dto) throws Exception {
+    public ResponseEntity<UsuarioDto> create(@org.springframework.web.bind.annotation.RequestBody UsuarioDto dto)
+            throws Exception {
         UsuarioDto created = apiBackendService.createUsuario(dto);
         return ResponseEntity.ok(created);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioDto> update(@PathVariable Long id,
+            @org.springframework.web.bind.annotation.RequestBody UsuarioDto dto) throws Exception {
+        UsuarioDto updated = apiBackendService.updateUsuario(id, dto);
+        return ResponseEntity.ok(updated);
     }
 
     @GetMapping("/verify/{dni}")

@@ -25,6 +25,8 @@ public interface ApiBackendService {
 
 	public UsuarioDto createUsuario(UsuarioDto dto) throws Exception;
 
+	public UsuarioDto updateUsuario(Long id, UsuarioDto dto) throws Exception;
+
 	public void deleteUsuario(Long id) throws Exception;
 
 	public java.util.Map<String, Object> verifyDni(String documentNumber) throws Exception;

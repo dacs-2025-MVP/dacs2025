@@ -22,8 +22,8 @@ export class ApiService extends BaseApiService {
   getPing(): Observable<string> {
     const url = `${environment.backendForFrontendUrl}/ping`;
     console.log('ApiService - Ping URL:', url);
-    
-    return this.http.get<string>(url, { 
+
+    return this.http.get<string>(url, {
       responseType: 'text' as 'json',
       headers: this.defaultHeaders
     }).pipe(
@@ -91,6 +91,14 @@ export class ApiService extends BaseApiService {
   }
 
   /**
+   * Obtiene un cliente por id
+   */
+  getClienteById(id: string | number): Observable<IApiResponse<any>> {
+    const endpoint = `${CLIENTES_ENDPOINTS.LIST}/${id}`;
+    return this.get<IApiResponse<any>>(endpoint);
+  }
+
+  /**
    * Elimina un cliente por id
    */
   deleteCliente(id: number): Observable<void> {
@@ -103,6 +111,14 @@ export class ApiService extends BaseApiService {
    */
   createCliente(payload: any): Observable<any> {
     return this.post<any>(CLIENTES_ENDPOINTS.LIST, payload);
+  }
+
+  /**
+   * Actualiza un cliente por id
+   */
+  updateCliente(id: string | number, payload: any): Observable<any> {
+    const endpoint = `${CLIENTES_ENDPOINTS.LIST}/${id}`;
+    return this.put<any>(endpoint, payload);
   }
 
   verifyDni(documentNumber: string): Observable<any> {

@@ -14,32 +14,28 @@ import com.dacs.bff.dto.AlumnoDto;
 import com.dacs.bff.dto.BuildInfoDTO;
 import com.dacs.bff.dto.UsuarioDto;
 
-
-@FeignClient(
-			name = "apiBackendClient", 
-			url = "${feign.client.config.apiBackendClient.url}"
-			)
+@FeignClient(name = "apiBackendClient", url = "${feign.client.config.apiBackendClient.url}")
 
 public interface ApiBackendClient {
 
     @GetMapping("/ping")
     String ping();
-    
+
     @GetMapping("/version")
     BuildInfoDTO version();
-    
+
     @GetMapping("/alumno")
     List<AlumnoDto> alumnos();
-    
+
     @GetMapping("/alumno/{id}")
     AlumnoDto alumnoById(@PathVariable("id") Long id);
-    
+
     @PostMapping("/alumno")
     AlumnoDto save(@RequestBody AlumnoDto alumno);
-    
+
     @PutMapping("/alumno")
     AlumnoDto update(@RequestBody AlumnoDto alumno);
-    
+
     @DeleteMapping("/alumno/{id}")
     AlumnoDto delete(@PathVariable("id") Long id);
 
@@ -49,10 +45,13 @@ public interface ApiBackendClient {
 
     @GetMapping("/usuarios/{id}")
     UsuarioDto usuarioById(@PathVariable("id") Long id);
-    
+
     @PostMapping("/usuarios")
     UsuarioDto saveUsuario(@RequestBody UsuarioDto usuario);
 
     @DeleteMapping("/usuarios/{id}")
     void deleteUsuario(@PathVariable("id") Long id);
+
+    @PutMapping("/usuarios/{id}")
+    UsuarioDto updateUsuario(@PathVariable("id") Long id, @RequestBody UsuarioDto usuario);
 }
