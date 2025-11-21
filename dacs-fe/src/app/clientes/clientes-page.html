@@ -3,7 +3,9 @@
     <div class="clientes-header">
       <h2 class="page-title">{{ title }}</h2>
       <div class="actions">
-        <input placeholder="Ingrese un cliente" class="search" />
+        <input placeholder="Ingrese un cliente" class="search" (input)="onSearchInput($event)" (keyup.enter)="searchByName()" [value]="searchTerm" />
+        <button class="search-btn" (click)="searchByName()">Buscar</button>
+        <button *ngIf="searchTerm" class="clear-btn" (click)="clearSearch()">Limpiar</button>
         <a class="new-btn" routerLink="/clientes/new">Nuevo cliente</a>
       </div>
     </div>
@@ -32,7 +34,7 @@
           <div class="phone">{{ c.num_telefono || c.telefono || 'Telefono' }}</div>
         </div>
         <div class="controls">
-            <button class="btn-small" (click)="goToDetalle(c)" title="Ver vehículos" aria-label="Ver vehículos">
+            <button class="btn-small" (click)="goToDetalle(c)" title="Ver detalle" aria-label="Ver detalle">
               <!-- magnify / view SVG -->
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
                 <path d="M21 21l-4.35-4.35" stroke="#6b5dd3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
