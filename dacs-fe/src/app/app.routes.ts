@@ -19,6 +19,7 @@ export const routes: Routes = [
   // Clientes page (clients list)
   { path: 'clientes/new', loadComponent: () => import('./clientes/clientes-create-page').then(m => m.ClientesCreatePageComponent), data: { title: 'Nuevo cliente' } },
   { path: 'clientes/new', loadComponent: () => import('./clientes/clientes-create-page').then(m => m.ClientesCreatePageComponent), data: { title: 'Nuevo cliente' } },
+  { path: 'clientes/view/:id', loadComponent: () => import('./clientes/clientes-view-page').then(m => m.ClientesViewPageComponent), data: { title: 'Visualizar cliente' } },
   { path: 'clientes/:id', loadComponent: () => import('./clientes/clientes-edit-page').then(m => m.ClientesEditPageComponent), data: { title: 'Modificar cliente' } },
   { path: 'clientes', loadComponent: () => import('./clientes/clientes-page').then(m => m.ClientesPageComponent), data: { title: 'Clientes' } },
   // Placeholder for Turnos (will implement Turnos view later)

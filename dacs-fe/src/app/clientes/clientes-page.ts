@@ -81,6 +81,14 @@ export class ClientesPageComponent implements OnInit {
 
   goToDetalle(cliente: any): void {
     if (cliente?.usuario_id) {
+      this.router.navigate(['/clientes', 'view', cliente.usuario_id]);
+    } else {
+      this.router.navigate(['/clientes']);
+    }
+  }
+
+  goToEdit(cliente: any): void {
+    if (cliente?.usuario_id) {
       this.router.navigate(['/clientes', cliente.usuario_id]);
     } else {
       this.router.navigate(['/clientes']);
