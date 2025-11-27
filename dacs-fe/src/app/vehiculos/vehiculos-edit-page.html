@@ -1,0 +1,66 @@
+<div class="create-wrapper">
+  <div class="create-card">
+    <h3 class="create-title">{{ title }}</h3>
+
+    <div class="form-shell">
+      <div class="left">
+        <div class="avatar-large" aria-hidden="true">
+          <!-- car SVG -->
+          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13" stroke="#2f3940" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm14 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" fill="#2f3940"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="form-row">
+          <label>Cliente</label>
+          <input [(ngModel)]="clienteNameTerm" (input)="onClienteInput()" placeholder="Buscar cliente por nombre" />
+          <div class="dropdown-list" *ngIf="filteredClientes.length > 0">
+            <div class="dropdown-item" *ngFor="let c of filteredClientes" (click)="selectCliente(c)">
+              {{ c.nombre }} {{ c.apellido }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Patente</label>
+          <input [value]="patente" disabled />
+        </div>
+
+        <div class="form-row">
+          <label>Marca</label>
+          <input [value]="marca" disabled />
+        </div>
+
+        <div class="form-row">
+          <label>Modelo</label>
+          <input [value]="modelo" disabled />
+        </div>
+
+        <div class="form-row">
+          <label>Color</label>
+          <input [value]="color" disabled />
+        </div>
+      </div>
+    </div>
+
+    <div class="create-actions">
+      <button class="save-btn" (click)="save()" [disabled]="saving">Guardar</button>
+      <button class="cancel-btn" (click)="cancel()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation modal -->
+<div *ngIf="showConfirm" class="confirm-modal" role="dialog" aria-modal="true">
+  <div class="confirm-dialog">
+    <h4>Confirmar cambios</h4>
+    <p>¿Desea cambiar el cliente del vehículo <strong>{{ patente }}</strong>?</p>
+    <div class="confirm-actions">
+      <button class="save-btn" (click)="confirmSave()" [disabled]="saving">Sí</button>
+      <button class="cancel-btn" (click)="closeConfirm()">No</button>
+    </div>
+  </div>
+</div>

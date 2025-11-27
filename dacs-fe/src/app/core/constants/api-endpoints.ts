@@ -34,6 +34,10 @@ export const CLIENTES_ENDPOINTS = {
   VERIFY: 'clientes/verify'
 } as const;
 
+export const VEHICULOS_ENDPOINTS = {
+  LIST: 'vehiculos'
+} as const;
+
 
 /**
  * Constantes para headers HTTP

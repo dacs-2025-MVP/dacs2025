@@ -15,7 +15,10 @@ export const routes: Routes = [
     loadComponent: () => import('./dashboard-view/dashboard-view').then(m => m.DashboardViewComponent),
     canActivate: [RoleBGuard]
   },
-  { path: 'vehiculos', loadComponent: () => import('./options/option-page').then(m => m.OptionPageComponent), data: { title: 'Vehículos' } },
+  { path: 'vehiculos/new', loadComponent: () => import('./vehiculos/vehiculos-create-page').then(m => m.VehiculosCreatePageComponent), data: { title: 'Nuevo vehículo' } },
+  { path: 'vehiculos/view/:id', loadComponent: () => import('./vehiculos/vehiculos-view-page').then(m => m.VehiculosViewPageComponent), data: { title: 'Información del vehículo' } },
+  { path: 'vehiculos/:id', loadComponent: () => import('./vehiculos/vehiculos-edit-page').then(m => m.VehiculosEditPageComponent), data: { title: 'Modificar vehículo' } },
+  { path: 'vehiculos', loadComponent: () => import('./vehiculos/vehiculos-page').then(m => m.VehiculosPageComponent), data: { title: 'Vehículos' } },
   // Clientes page (clients list)
   { path: 'clientes/new', loadComponent: () => import('./clientes/clientes-create-page').then(m => m.ClientesCreatePageComponent), data: { title: 'Nuevo cliente' } },
   { path: 'clientes/new', loadComponent: () => import('./clientes/clientes-create-page').then(m => m.ClientesCreatePageComponent), data: { title: 'Nuevo cliente' } },

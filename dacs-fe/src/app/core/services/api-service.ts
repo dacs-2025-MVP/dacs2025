@@ -5,7 +5,7 @@ import { BaseApiService } from './base-api.service';
 import { IRequestTest } from '../models/irequest-test';
 import { ITestResponse } from '../models/iresponse';
 import { IApiResponse, IStatusResponse } from '../models/api-response';
-import { API_ENDPOINTS, CLIENTES_ENDPOINTS } from '../constants/api-endpoints';
+import { API_ENDPOINTS, CLIENTES_ENDPOINTS, VEHICULOS_ENDPOINTS } from '../constants/api-endpoints';
 import { environment } from '../../../environments/environment';
 
 /**
@@ -86,8 +86,28 @@ export class ApiService extends BaseApiService {
    * Obtiene la lista de clientes desde el BFF (backend path: /usuarios)
    */
   getClientes(): Observable<IApiResponse<any>> {
-    // usamos la constante CLIENTES_ENDPOINTS que apunta al path real
-    return this.get<IApiResponse<any>>(CLIENTES_ENDPOINTS.LIST);
+    // Normalizamos la respuesta para aceptar tanto:
+    // - respuestas envueltas: { data: [...] }
+    // - respuestas directas: [ {...}, ... ]
+    return this.get<any>(CLIENTES_ENDPOINTS.LIST).pipe(
+      map((resp) => {
+        if (Array.isArray(resp)) {
+          return { data: resp } as IApiResponse<any>;
+        }
+        if (resp && resp.data !== undefined) {
+          return resp as IApiResponse<any>;
+        }
+        // Fallback: wrap whatever came back into data
+        return { data: resp } as IApiResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Obtiene la lista de vehículos desde el BFF
+   */
+  getVehiculos(): Observable<IApiResponse<any>> {
+    return this.get<IApiResponse<any>>(VEHICULOS_ENDPOINTS.LIST);
   }
 
   /**
@@ -107,6 +127,14 @@ export class ApiService extends BaseApiService {
   }
 
   /**
+   * Elimina un vehículo por id
+   */
+  deleteVehiculo(id: number): Observable<void> {
+    const endpoint = `${VEHICULOS_ENDPOINTS.LIST}/${id}`;
+    return this.delete<void>(endpoint);
+  }
+
+  /**
    * Crea un nuevo cliente (proxied to backend /usuarios)
    */
   createCliente(payload: any): Observable<any> {
@@ -118,6 +146,29 @@ export class ApiService extends BaseApiService {
    */
   updateCliente(id: string | number, payload: any): Observable<any> {
     const endpoint = `${CLIENTES_ENDPOINTS.LIST}/${id}`;
+    return this.put<any>(endpoint, payload);
+  }
+
+  /**
+   * Crea un vehículo
+   */
+  createVehiculo(payload: any): Observable<any> {
+    return this.post<any>(VEHICULOS_ENDPOINTS.LIST, payload);
+  }
+
+  /**
+   * Obtiene un vehículo por id
+   */
+  getVehiculoById(id: string | number): Observable<IApiResponse<any>> {
+    const endpoint = `${VEHICULOS_ENDPOINTS.LIST}/${id}`;
+    return this.get<IApiResponse<any>>(endpoint);
+  }
+
+  /**
+   * Actualiza un vehículo (parcialmente)
+   */
+  updateVehiculo(id: string | number, payload: any): Observable<any> {
+    const endpoint = `${VEHICULOS_ENDPOINTS.LIST}/${id}`;
     return this.put<any>(endpoint, payload);
   }
 

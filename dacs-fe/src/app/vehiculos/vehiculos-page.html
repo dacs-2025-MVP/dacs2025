@@ -1,0 +1,79 @@
+<div class="vehiculos-wrapper">
+  <div class="vehiculos-card">
+    <div class="vehiculos-header">
+      <h2 class="page-title">{{ title }}</h2>
+      <div class="actions">
+        <input placeholder="Ingrese una patente" class="search" (input)="onSearchInput($event)" (keyup.enter)="searchByTerm()" [value]="searchTerm" />
+        <button class="search-btn" (click)="searchByTerm()">Buscar</button>
+        <button *ngIf="searchTerm" class="clear-btn" (click)="clearSearch()">Limpiar</button>
+        <a class="new-btn" routerLink="/vehiculos/new">Nuevo vehículo</a>
+      </div>
+    </div>
+
+    <p class="hint">Para ver el historial de reparaciones seleccione uno de la lista</p>
+
+    <div *ngIf="loading" class="loading">Cargando vehículos...</div>
+
+    <div *ngIf="!loading && vehiculos.length === 0" class="empty">
+      <p>No existen vehículos.</p>
+    </div>
+
+    <div *ngIf="!loading && displayedVehiculos.length > 0" class="list">
+      <div *ngFor="let v of displayedVehiculos" class="list-item">
+        <div class="avatar" aria-hidden="true">
+          <!-- car icon -->
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="avatar-icon">
+            <path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13" stroke="#6b6f76" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 17a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm14 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" fill="#cfd8dc"/>
+          </svg>
+        </div>
+        <div class="info">
+          <div class="name">{{ v.patente || v.patente_vehiculo || 'Patente' }}</div>
+          <div class="meta">{{ v.marca || 'Marca' }} - {{ (clientesMap[v?.clienteId || v?.cliente_id || ''] || 'Sin cliente') }}</div>
+        </div>
+        <div class="controls">
+            <button class="btn-small" (click)="goToDetalle(v)" title="Ver detalle" aria-label="Ver detalle">
+              <!-- magnify / view SVG -->
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+                <path d="M21 21l-4.35-4.35" stroke="#6b5dd3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="11" cy="11" r="5" stroke="#6b5dd3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="btn-small" (click)="goToEdit(v)" title="Editar" aria-label="Editar">
+              <!-- pencil / edit SVG -->
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+                <path d="M3 21h4l11-11a2.828 2.828 0 0 0 0-4l-1-1a2.828 2.828 0 0 0-4 0L3 16v5z" stroke="#6b5dd3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="btn-small delete" (click)="openConfirmDelete(v)" title="Eliminar" aria-label="Eliminar vehículo">
+              <!-- trash / delete SVG -->
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+                <path d="M3 6h18" stroke="#f04e4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 6v12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6" stroke="#f04e4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 11v6M14 11v6" stroke="#f04e4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="#f04e4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="card-footer">
+      <a routerLink="/home" class="cancel-btn">Cancelar</a>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation modal for delete vehicle -->
+<div *ngIf="showConfirm" class="confirm-modal" role="dialog" aria-modal="true">
+  <div class="confirm-dialog">
+    <h4>Confirmar eliminación</h4>
+    <p>¿Está seguro que desea eliminar este vehículo (<strong>{{ selectedVehiculo?.patente || selectedVehiculo?.patente_vehiculo }}</strong>)?</p>
+    <div class="confirm-actions">
+      <button class="save-btn" (click)="confirmDeleteConfirmed()">Sí</button>
+      <button class="cancel-btn" (click)="closeConfirm()">No</button>
+    </div>
+  </div>
+</div>

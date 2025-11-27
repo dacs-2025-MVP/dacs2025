@@ -54,4 +54,21 @@ public interface ApiBackendClient {
 
     @PutMapping("/usuarios/{id}")
     UsuarioDto updateUsuario(@PathVariable("id") Long id, @RequestBody UsuarioDto usuario);
+
+        // Vehiculos endpoints (proxied to backend)
+        @GetMapping("/vehiculos")
+        java.util.List<java.util.Map<String, Object>> vehiculos();
+
+        @GetMapping("/vehiculos/{id}")
+        java.util.Map<String, Object> vehiculoById(@PathVariable("id") Long id);
+
+        @PostMapping("/vehiculos")
+        java.util.Map<String, Object> saveVehiculo(@RequestBody java.util.Map<String, Object> vehiculo);
+
+        @PutMapping("/vehiculos/{id}")
+        java.util.Map<String, Object> updateVehiculo(@PathVariable("id") Long id,
+            @RequestBody java.util.Map<String, Object> vehiculo);
+
+        @DeleteMapping("/vehiculos/{id}")
+        void deleteVehiculo(@PathVariable("id") Long id);
 }
