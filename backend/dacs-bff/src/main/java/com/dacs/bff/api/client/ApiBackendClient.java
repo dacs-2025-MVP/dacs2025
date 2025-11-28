@@ -49,6 +49,15 @@ public interface ApiBackendClient {
     @PostMapping("/usuarios")
     UsuarioDto saveUsuario(@RequestBody UsuarioDto usuario);
 
+    @GetMapping("/usuarios/app-users")
+    java.util.List<UsuarioDto> usuariosApp();
+
+    @GetMapping("/usuarios/available-for-user")
+    java.util.List<UsuarioDto> availableForUser();
+
+    @PostMapping("/usuarios/create-user")
+    UsuarioDto createUserForCliente(@RequestBody java.util.Map<String, Object> body);
+
     @DeleteMapping("/usuarios/{id}")
     void deleteUsuario(@PathVariable("id") Long id);
 

@@ -28,6 +28,8 @@ public class VehiculoServiceImpl implements VehiculoService {
         Vehiculo v = new Vehiculo();
         v.setPatente(dto.getPatente());
         v.setMarca(dto.getMarca());
+        v.setModelo(dto.getModelo());
+        v.setColor(dto.getColor());
         if (dto.getClienteId() != null) {
             Usuario u = usuarioRepository.findById(dto.getClienteId()).orElse(null);
             v.setCliente(u);
@@ -41,6 +43,8 @@ public class VehiculoServiceImpl implements VehiculoService {
         Vehiculo v = vehiculoRepository.findById(id).orElseThrow();
         v.setPatente(dto.getPatente());
         v.setMarca(dto.getMarca());
+        v.setModelo(dto.getModelo());
+        v.setColor(dto.getColor());
         if (dto.getClienteId() != null) {
             Usuario u = usuarioRepository.findById(dto.getClienteId()).orElse(null);
             v.setCliente(u);
@@ -68,6 +72,8 @@ public class VehiculoServiceImpl implements VehiculoService {
         d.setVehiculo_id(v.getVehiculo_id());
         d.setPatente(v.getPatente());
         d.setMarca(v.getMarca());
+        d.setModelo(v.getModelo());
+        d.setColor(v.getColor());
         d.setClienteId(v.getCliente() != null ? v.getCliente().getUsuario_id() : null);
         return d;
     }

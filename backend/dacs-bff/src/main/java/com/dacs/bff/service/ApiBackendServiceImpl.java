@@ -75,6 +75,21 @@ public class ApiBackendServiceImpl implements ApiBackendService {
 	}
 
 	@Override
+	public java.util.List<UsuarioDto> getAppUsers() {
+		return apiBackendClient.usuariosApp();
+	}
+
+	@Override
+	public java.util.List<UsuarioDto> getAvailableForUser() {
+		return apiBackendClient.availableForUser();
+	}
+
+	@Override
+	public UsuarioDto createUserForCliente(java.util.Map<String, Object> body) throws Exception {
+		return apiBackendClient.createUserForCliente(body);
+	}
+
+	@Override
 	public UsuarioDto updateUsuario(Long id, UsuarioDto dto) throws Exception {
 		return apiBackendClient.updateUsuario(id, dto);
 	}

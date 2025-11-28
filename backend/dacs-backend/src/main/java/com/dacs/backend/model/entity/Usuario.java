@@ -27,4 +27,8 @@ public class Usuario {
     @JoinColumn(name = "rol_id")
     private Rol rol;
 
+    // application credentials (optional) - kept simple for now
+    private String username;
+    private String password;
+
 }

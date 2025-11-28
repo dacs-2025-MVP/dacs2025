@@ -18,6 +18,8 @@ public class Vehiculo {
 
     private String patente;
     private String marca;
+    private String modelo;
+    private String color;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")

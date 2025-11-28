@@ -25,6 +25,12 @@ public interface ApiBackendService {
 
 	public UsuarioDto createUsuario(UsuarioDto dto) throws Exception;
 
+	public java.util.List<UsuarioDto> getAppUsers();
+
+	public java.util.List<UsuarioDto> getAvailableForUser();
+
+	public UsuarioDto createUserForCliente(java.util.Map<String, Object> body) throws Exception;
+
 	public UsuarioDto updateUsuario(Long id, UsuarioDto dto) throws Exception;
 
 	public void deleteUsuario(Long id) throws Exception;

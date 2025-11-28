@@ -36,6 +36,32 @@ export class ApiService extends BaseApiService {
   }
 
   /**
+   * Obtiene la lista de app-users (clientes que ya tienen username)
+   */
+  getAppUsers(): Observable<IApiResponse<any>> {
+    // /usuarios/app-users proxied as clientes/app-users by BFF mapping
+    const endpoint = `${CLIENTES_ENDPOINTS.LIST}/app-users`;
+    return this.get<IApiResponse<any>>(endpoint);
+  }
+
+  /**
+   * Obtiene la lista de clientes disponibles para crear un usuario (sin username)
+   */
+  getAvailableClientsForUser(): Observable<IApiResponse<any>> {
+    const endpoint = `${CLIENTES_ENDPOINTS.LIST}/available-for-user`;
+    return this.get<IApiResponse<any>>(endpoint);
+  }
+
+  /**
+   * Crea un usuario de aplicación para un cliente existente.
+   * Payload: { clienteId: number }
+   */
+  createUserForCliente(payload: { clienteId: number }): Observable<any> {
+    const endpoint = `${CLIENTES_ENDPOINTS.LIST}/create-user`;
+    return this.post<any>(endpoint, payload);
+  }
+
+  /**
    * Obtiene el estado detallado del sistema
    */
   getSystemStatus(): Observable<IStatusResponse> {

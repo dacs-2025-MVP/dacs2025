@@ -49,4 +49,25 @@ public class UsuarioController {
     public ResponseEntity<List<UsuarioDto>> getAll() {
         return ResponseEntity.ok(usuarioService.findAll());
     }
+
+    // List application users (usuarios that have credentials)
+    @GetMapping("/app-users")
+    public ResponseEntity<List<UsuarioDto>> getAppUsers() {
+        return ResponseEntity.ok(usuarioService.findUsers());
+    }
+
+    // List clients available to be associated with an app user (no username yet)
+    @GetMapping("/available-for-user")
+    public ResponseEntity<List<UsuarioDto>> getAvailableForUser() {
+        return ResponseEntity.ok(usuarioService.findAvailableClientsForUser());
+    }
+
+    // Create an app-user for an existing client. Body: { "clienteId": 123 }
+    @PostMapping("/create-user")
+    public ResponseEntity<UsuarioDto> createUserForCliente(@RequestBody java.util.Map<String, Object> body) {
+        Object o = body.get("clienteId");
+        if (o == null) return ResponseEntity.badRequest().build();
+        Long clienteId = Long.valueOf(String.valueOf(o));
+        return ResponseEntity.ok(usuarioService.createUserForCliente(clienteId));
+    }
 }

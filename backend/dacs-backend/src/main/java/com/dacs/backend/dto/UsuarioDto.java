@@ -10,5 +10,9 @@ public class UsuarioDto {
     private String num_telefono;
     private String correo;
     private String dni;
+    // optional app username (when this client has an associated app user)
+    private String username;
+    // plain-text password (returned on creation for operator to share). For prototype only.
+    private String password;
     private Long rolId;
 }

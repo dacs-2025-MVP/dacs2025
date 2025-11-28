@@ -1,0 +1,56 @@
+<div class="clientes-wrapper">
+  <div class="clientes-card">
+    <div class="clientes-header">
+      <h2 class="page-title">{{ title }}</h2>
+      <div class="actions">
+        <input placeholder="Buscar usuario" class="search" (input)="onSearchInput($event)" (keyup.enter)="searchByName()" [value]="searchTerm" />
+        <button class="search-btn" (click)="searchByName()">Buscar</button>
+        <button *ngIf="searchTerm" class="clear-btn" (click)="clearSearch()">Limpiar</button>
+        <button class="new-btn" (click)="goToCreate()">Crear Usuario</button>
+      </div>
+    </div>
+
+    <p class="hint">Lista de usuarios de la aplicación</p>
+
+    <div *ngIf="loading" class="loading">Cargando usuarios...</div>
+
+    <div *ngIf="!loading && (displayedUsuarios?.length || 0) === 0" class="empty">
+      <p>No se encontraron usuarios.</p>
+    </div>
+
+    <div *ngIf="!loading && (displayedUsuarios?.length || 0) > 0" class="list">
+      <div *ngFor="let u of (displayedUsuarios || [])" class="list-item">
+        <div class="avatar">👤</div>
+        <div class="info">
+          <div class="name">{{ u.nombre }} {{ u.apellido }}</div>
+          <div class="phone">{{ u.num_telefono || u.numTelefono || '' }} • <small>{{ u.username || '-' }}</small></div>
+        </div>
+        <div class="controls">
+          <button class="btn-small" (click)="goToDetalle(u)" title="Ver detalle">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+              <path d="M21 21l-4.35-4.35" stroke="#6b5dd3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="11" cy="11" r="5" stroke="#6b5dd3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="btn-small" (click)="goToEdit(u)" title="Editar"> 
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+              <path d="M3 21h4l11-11a2.828 2.828 0 0 0 0-4l-1-1a2.828 2.828 0 0 0-4 0L3 16v5z" stroke="#6b5dd3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="btn-small delete" (click)="confirmDelete(u)" title="Eliminar">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+              <path d="M3 6h18" stroke="#f04e4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 6v12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6" stroke="#f04e4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="card-footer">
+      <a routerLink="/home" class="cancel-btn">Cancelar</a>
+    </div>
+  </div>
+</div>

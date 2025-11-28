@@ -50,6 +50,22 @@ public class UsuarioController {
         return ResponseEntity.ok(created);
     }
 
+    @GetMapping("/app-users")
+    public ResponseEntity<java.util.List<UsuarioDto>> getAppUsers() {
+        return ResponseEntity.ok(apiBackendService.getAppUsers());
+    }
+
+    @GetMapping("/available-for-user")
+    public ResponseEntity<java.util.List<UsuarioDto>> getAvailableForUser() {
+        return ResponseEntity.ok(apiBackendService.getAvailableForUser());
+    }
+
+    @PostMapping("/create-user")
+    public ResponseEntity<UsuarioDto> createUserForCliente(@org.springframework.web.bind.annotation.RequestBody java.util.Map<String, Object> body) throws Exception {
+        UsuarioDto created = apiBackendService.createUserForCliente(body);
+        return ResponseEntity.ok(created);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioDto> update(@PathVariable Long id,
             @org.springframework.web.bind.annotation.RequestBody UsuarioDto dto) throws Exception {

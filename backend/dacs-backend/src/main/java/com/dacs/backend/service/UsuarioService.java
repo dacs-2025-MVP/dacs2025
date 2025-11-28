@@ -10,4 +10,8 @@ public interface UsuarioService {
     void delete(Long id);
     UsuarioDto findById(Long id);
     List<UsuarioDto> findAll();
+    // App-user related helpers
+    List<UsuarioDto> findUsers();
+    List<UsuarioDto> findAvailableClientsForUser();
+    UsuarioDto createUserForCliente(Long clienteId);
 }

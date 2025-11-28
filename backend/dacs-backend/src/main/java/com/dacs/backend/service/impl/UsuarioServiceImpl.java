@@ -51,7 +51,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void delete(Long id) {
-        usuarioRepository.deleteById(id);
+        try {
+            usuarioRepository.deleteById(id);
+        } catch (org.springframework.dao.DataIntegrityViolationException ex) {
+            // translate to a 409 so frontend can show a meaningful message
+            throw new org.springframework.web.server.ResponseStatusException(
+                    org.springframework.http.HttpStatus.CONFLICT,
+                    "No se puede eliminar el usuario porque tiene registros relacionados.",
+                    ex);
+        }
     }
 
     @Override
@@ -64,6 +72,38 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
     }
 
+    @Override
+    public List<UsuarioDto> findUsers() {
+        return usuarioRepository.findByUsernameIsNotNull().stream().map(this::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UsuarioDto> findAvailableClientsForUser() {
+        return usuarioRepository.findByUsernameIsNull().stream().map(this::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public UsuarioDto createUserForCliente(Long clienteId) {
+        Usuario u = usuarioRepository.findById(clienteId).orElseThrow();
+        if (u.getUsername() != null && !u.getUsername().isEmpty()) {
+            return toDto(u); // already has user
+        }
+        // Build username: nombre + apellido, lowercase, without spaces
+        String nombre = (u.getNombre() != null ? u.getNombre().replaceAll("\\s+", "") : "");
+        String apellido = (u.getApellido() != null ? u.getApellido().replaceAll("\\s+", "") : "");
+        String base = (nombre + apellido).toLowerCase();
+        String candidate = base;
+        int suffix = 1;
+        while (usuarioRepository.findByUsername(candidate) != null) {
+            candidate = base + suffix;
+            suffix++;
+        }
+        u.setUsername(candidate);
+        u.setPassword(candidate + "123");
+        Usuario saved = usuarioRepository.save(u);
+        return toDto(saved);
+    }
+
     private UsuarioDto toDto(Usuario u) {
         if (u == null) return null;
         UsuarioDto d = new UsuarioDto();
@@ -74,6 +114,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         d.setCorreo(u.getCorreo());
         d.setDni(u.getDni());
         d.setRolId(u.getRol() != null ? u.getRol().getId() : null);
+        // include username and password when present so UI can show created credentials
+        d.setUsername(u.getUsername());
+        d.setPassword(u.getPassword());
         return d;
     }
 

@@ -27,6 +27,7 @@ export const routes: Routes = [
   { path: 'clientes', loadComponent: () => import('./clientes/clientes-page').then(m => m.ClientesPageComponent), data: { title: 'Clientes' } },
   // Placeholder for Turnos (will implement Turnos view later)
   { path: 'turnos', loadComponent: () => import('./options/option-page').then(m => m.OptionPageComponent), data: { title: 'Turnos' } },
-  { path: 'usuarios', loadComponent: () => import('./options/option-page').then(m => m.OptionPageComponent), data: { title: 'Usuarios' } },
+  { path: 'usuarios/new', loadComponent: () => import('./usuarios/usuarios-create').then(m => m.UsuariosCreateComponent), data: { title: 'Crear usuario' } },
+  { path: 'usuarios', loadComponent: () => import('./usuarios/usuarios-page').then(m => m.UsuariosPageComponent), data: { title: 'Usuarios' } },
   { path: '**', redirectTo: '/home' }
 ];

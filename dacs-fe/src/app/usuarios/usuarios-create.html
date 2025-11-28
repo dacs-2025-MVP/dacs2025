@@ -1,0 +1,36 @@
+<div class="create-wrapper">
+  <div class="create-card">
+    <h3 class="create-title">Crear Usuario</h3>
+
+    <div class="form-shell">
+      <div class="left">
+        <div class="avatar-large" aria-hidden="true">👤</div>
+      </div>
+      <div class="right">
+        <div class="form-row">
+          <label>Cliente</label>
+          <select [(ngModel)]="selectedClienteId">
+            <option [ngValue]="null">-- Seleccione --</option>
+            <option *ngFor="let c of clientes" [ngValue]="c.usuario_id">{{ c.nombre }} {{ c.apellido }} ({{ c.dni }})</option>
+          </select>
+        </div>
+
+        <div *ngIf="createdCredentials" class="form-row">
+          <div>
+            <label>Username</label>
+            <div>{{ createdCredentials.username }}</div>
+          </div>
+          <div>
+            <label>Password</label>
+            <div>{{ createdCredentials.password }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="create-actions">
+      <button class="save-btn" (click)="createUser()" [disabled]="creating">{{ creating ? 'Creando...' : 'Crear' }}</button>
+      <button class="cancel-btn" (click)="backToList()">Volver</button>
+    </div>
+  </div>
+</div>
