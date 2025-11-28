@@ -21,12 +21,15 @@ export const routes: Routes = [
   { path: 'vehiculos', loadComponent: () => import('./vehiculos/vehiculos-page').then(m => m.VehiculosPageComponent), data: { title: 'Vehículos' } },
   // Clientes page (clients list)
   { path: 'clientes/new', loadComponent: () => import('./clientes/clientes-create-page').then(m => m.ClientesCreatePageComponent), data: { title: 'Nuevo cliente' } },
-  { path: 'clientes/new', loadComponent: () => import('./clientes/clientes-create-page').then(m => m.ClientesCreatePageComponent), data: { title: 'Nuevo cliente' } },
   { path: 'clientes/view/:id', loadComponent: () => import('./clientes/clientes-view-page').then(m => m.ClientesViewPageComponent), data: { title: 'Visualizar cliente' } },
   { path: 'clientes/:id', loadComponent: () => import('./clientes/clientes-edit-page').then(m => m.ClientesEditPageComponent), data: { title: 'Modificar cliente' } },
   { path: 'clientes', loadComponent: () => import('./clientes/clientes-page').then(m => m.ClientesPageComponent), data: { title: 'Clientes' } },
+  // Usuarios page (users list)
+  { path: 'usuarios/new', loadComponent: () => import('./usuarios/usuarios-create-page').then(m => m.UsuariosCreatePageComponent), data: { title: 'Nuevo usuario' } },
+  { path: 'usuarios/view/:id', loadComponent: () => import('./usuarios/usuarios-view-page').then(m => m.UsuariosViewPageComponent), data: { title: 'Visualizar usuario' } },
+  { path: 'usuarios/:id', loadComponent: () => import('./usuarios/usuarios-edit-page').then(m => m.UsuariosEditPageComponent), data: { title: 'Modificar usuario' } },
+  { path: 'usuarios', loadComponent: () => import('./usuarios/usuarios-page').then(m => m.UsuariosPageComponent), data: { title: 'Usuarios' } },
   // Placeholder for Turnos (will implement Turnos view later)
   { path: 'turnos', loadComponent: () => import('./options/option-page').then(m => m.OptionPageComponent), data: { title: 'Turnos' } },
-  { path: 'usuarios', loadComponent: () => import('./options/option-page').then(m => m.OptionPageComponent), data: { title: 'Usuarios' } },
   { path: '**', redirectTo: '/home' }
 ];

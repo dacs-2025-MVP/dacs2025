@@ -38,6 +38,10 @@ export const VEHICULOS_ENDPOINTS = {
   LIST: 'vehiculos'
 } as const;
 
+export const USUARIOS_ENDPOINTS = {
+  LIST: 'usuarios'
+} as const;
+
 
 /**
  * Constantes para headers HTTP

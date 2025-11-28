@@ -1,0 +1,49 @@
+<div class="view-wrapper">
+  <div class="view-card">
+    <div class="view-header">
+      <h3>Visualizar usuario</h3>
+    </div>
+
+    <div *ngIf="loading" class="loading">Cargando usuario...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div *ngIf="!loading && usuario" class="view-body">
+      <div class="photo-area">
+        <div class="photo-placeholder">
+          <!-- large avatar icon -->
+          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="avatar-large">
+            <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5z" fill="#dbe9f8"/>
+            <path d="M4 20c0-2.761 3.582-5 8-5s8 2.239 8 5v1H4v-1z" fill="#e9f2fb"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="info-area">
+        <div class="info-row">
+          <label>DNI</label>
+          <input type="text" [value]="usuario.dni || ''" disabled />
+        </div>
+        <div class="info-row">
+          <label>Nombre</label>
+          <input type="text" [value]="usuario.nombre || ''" disabled />
+        </div>
+        <div class="info-row">
+          <label>Apellido</label>
+          <input type="text" [value]="usuario.apellido || ''" disabled />
+        </div>
+        <div class="info-row">
+          <label>Teléfono</label>
+          <input type="text" [value]="usuario.num_telefono || ''" disabled />
+        </div>
+        <div class="info-row">
+          <label>E-mail</label>
+          <input type="text" [value]="usuario.correo || ''" disabled />
+        </div>
+      </div>
+    </div>
+
+    <div class="view-footer">
+      <button class="cancel-btn" (click)="backToList()">Cancelar</button>
+    </div>
+  </div>
+</div>

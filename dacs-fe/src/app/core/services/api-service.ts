@@ -5,7 +5,7 @@ import { BaseApiService } from './base-api.service';
 import { IRequestTest } from '../models/irequest-test';
 import { ITestResponse } from '../models/iresponse';
 import { IApiResponse, IStatusResponse } from '../models/api-response';
-import { API_ENDPOINTS, CLIENTES_ENDPOINTS, VEHICULOS_ENDPOINTS } from '../constants/api-endpoints';
+import { API_ENDPOINTS, CLIENTES_ENDPOINTS, VEHICULOS_ENDPOINTS, USUARIOS_ENDPOINTS } from '../constants/api-endpoints';
 import { environment } from '../../../environments/environment';
 
 /**
@@ -175,5 +175,55 @@ export class ApiService extends BaseApiService {
   verifyDni(documentNumber: string): Observable<any> {
     const endpoint = `${CLIENTES_ENDPOINTS.VERIFY}/${documentNumber}`;
     return this.get<any>(endpoint);
+  }
+
+  // ============= USUARIOS ENDPOINTS =============
+
+  /**
+   * Obtiene la lista de usuarios desde el BFF
+   */
+  getUsuarios(): Observable<IApiResponse<any>> {
+    return this.get<any>(USUARIOS_ENDPOINTS.LIST).pipe(
+      map((resp) => {
+        if (Array.isArray(resp)) {
+          return { data: resp } as IApiResponse<any>;
+        }
+        if (resp && resp.data !== undefined) {
+          return resp as IApiResponse<any>;
+        }
+        return { data: resp } as IApiResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Obtiene un usuario por id
+   */
+  getUsuarioById(id: string | number): Observable<IApiResponse<any>> {
+    const endpoint = `${USUARIOS_ENDPOINTS.LIST}/${id}`;
+    return this.get<IApiResponse<any>>(endpoint);
+  }
+
+  /**
+   * Crea un nuevo usuario
+   */
+  createUsuario(payload: any): Observable<any> {
+    return this.post<any>(USUARIOS_ENDPOINTS.LIST, payload);
+  }
+
+  /**
+   * Actualiza un usuario por id
+   */
+  updateUsuario(id: string | number, payload: any): Observable<any> {
+    const endpoint = `${USUARIOS_ENDPOINTS.LIST}/${id}`;
+    return this.put<any>(endpoint, payload);
+  }
+
+  /**
+   * Elimina un usuario por id
+   */
+  deleteUsuario(id: number): Observable<void> {
+    const endpoint = `${USUARIOS_ENDPOINTS.LIST}/${id}`;
+    return this.delete<void>(endpoint);
   }
 }
