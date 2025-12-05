@@ -40,5 +40,12 @@ export class ReparacionDetailPageComponent implements OnInit {
     });
   }
 
+  viewFotos(linea: any): void {
+    const lineaId = linea.linea_reparacion_id || linea.id;
+    if (this.vehiculoId && this.reparacionId && lineaId) {
+      this.router.navigate([`/vehiculos/${this.vehiculoId}/reparaciones/${this.reparacionId}/lineas/${lineaId}/fotos`]);
+    }
+  }
+
   back(): void { if (this.vehiculoId) this.router.navigate([`/vehiculos/${this.vehiculoId}/reparaciones`]); }
 }
