@@ -1,6 +1,7 @@
 package com.dacs.bff.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,7 +96,7 @@ public class ApiBackendServiceImpl implements ApiBackendService {
 	}
 
 	@Override
-	public java.util.Map<String, Object> verifyDni(String documentNumber) throws Exception {
+    public Map<String, Object> verifyDni(String documentNumber) throws Exception {
 		try {
 			return apiConectorClient.nosisByDni(documentNumber);
 		} catch (Exception e) {
@@ -107,4 +108,43 @@ public class ApiBackendServiceImpl implements ApiBackendService {
 		}
 	}
 
+    @Override
+    public Map<String, Object> getReparacionById(Long id) {
+        return apiBackendClient.getReparacionById(id);
+    }
+
+    @Override
+    public Map<String, Object> getReparacionDetails(Long id) {
+        return apiBackendClient.getReparacionDetails(id);
+    }
+
+    @Override
+    public Map<String, Object> updateReparacion(Long id, Map<String, Object> reparacionDto) {
+        return apiBackendClient.updateReparacion(id, reparacionDto);
+    }
+
+    @Override
+    public void deleteReparacion(Long id) {
+        apiBackendClient.deleteReparacion(id);
+    }
+
+    @Override
+    public List<Map<String, Object>> getLineasReparacion(Long id) {
+        return apiBackendClient.getLineasReparacion(id);
+    }
+
+    @Override
+    public Map<String, Object> addLineaReparacion(Long id, Map<String, Object> lineaDto) {
+        return apiBackendClient.addLineaReparacion(id, lineaDto);
+    }
+
+    @Override
+    public Map<String, Object> updateLineaReparacion(Long id, Map<String, Object> lineaDto) {
+        return apiBackendClient.updateLineaReparacion(id, lineaDto);
+    }
+
+    @Override
+    public void deleteLineaReparacion(Long id) {
+        apiBackendClient.deleteLineaReparacion(id);
+    }
 }

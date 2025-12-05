@@ -52,4 +52,17 @@ public class VehiculoController {
         apiBackendClient.deleteVehiculo(id);
         return ResponseEntity.noContent().build();
     }
+    
+    @GetMapping("/{id}/reparaciones")
+    public ResponseEntity<List<Map<String, Object>>> getReparacionesByVehiculo(@PathVariable Long id) throws Exception {
+        return ResponseEntity.ok(apiBackendClient.reparacionesByVehiculo(id));
+    }
+
+    @PostMapping("/{id}/reparaciones")
+    public ResponseEntity<Map<String, Object>> createReparacionForVehiculo(@PathVariable Long id, @RequestBody Map<String, Object> dto) throws Exception {
+        // Ensure backend receives vehiculoId in the payload expected by ReparacionDto
+        if (dto == null) dto = new java.util.HashMap<>();
+        dto.put("vehiculoId", id);
+        return ResponseEntity.ok(apiBackendClient.createReparacion(dto));
+    }
 }

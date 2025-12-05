@@ -1,0 +1,85 @@
+<div class="container">
+  <div *ngIf="loading" class="loading">Cargando...</div>
+
+  <div *ngIf="!loading && reparacion" class="card">
+    <div class="card-header">
+      <h2>Detalle de Reparación</h2>
+      <button class="back-button" (click)="back()">Volver</button>
+    </div>
+
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">ID Reparación</span>
+          <span class="value">{{ reparacion.reparacion_id || reparacion.id }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Fecha de Ingreso</span>
+          <span class="value">{{ (reparacion.fecha_ingreso || reparacion.fechaIngreso | date:'dd/MM/yyyy') || '-' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Fecha de Egreso</span>
+          <span class="value">{{ (reparacion.fecha_egreso || reparacion.fechaEgreso | date:'dd/MM/yyyy') || '-' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Responsable</span>
+          <span class="value">{{ reparacion.responsable || '-' }}</span>
+        </div>
+      </div>
+
+      <!-- File Sections (Mocked based on image) -->
+      <div class="files-section" *ngIf="reparacion.factura_repuestos_pdf || reparacion.archivo_ocompra_repuestos_pdf">
+        <div class="file-row" *ngIf="reparacion.archivo_ocompra_repuestos_pdf">
+          <span class="label">Presupuesto</span>
+          <div class="file-item">
+            <span class="file-icon">📄</span>
+            <span class="file-name">{{ reparacion.archivo_ocompra_repuestos_pdf }}</span>
+            <span class="file-size">15 KB</span>
+          </div>
+        </div>
+        <div class="file-row" *ngIf="reparacion.factura_repuestos_pdf">
+          <span class="label">Repuestos</span>
+          <div class="file-list">
+            <div class="file-item">
+              <span class="file-icon">📦</span>
+              <span class="file-name">{{ reparacion.factura_repuestos_pdf }}</span>
+              <span class="file-size">12 KB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="lines-title">Líneas de Reparación</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Responsable</th>
+              <th>Detalle</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let l of reparacion.lineasReparacion || reparacion.lineas">
+              <td>{{ (l.fecha | date:'dd/MM/yyyy') || '-' }}</td>
+              <td>{{ reparacion.responsable || '-' }}</td>
+              <td>{{ l.descripcion || l.detalle || '-' }}</td>
+              <td class="action-icon">
+                <button class="icon-btn" title="Ver detalle">📷</button>
+              </td>
+            </tr>
+            <tr *ngIf="(!reparacion.lineasReparacion && !reparacion.lineas) || (reparacion.lineasReparacion?.length === 0 && reparacion.lineas?.length === 0)">
+              <td colspan="4" class="no-data">No hay líneas de reparación.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !reparacion" class="no-data-full">
+    <p>No se pudo cargar la información de la reparación.</p>
+    <button (click)="back()">Volver</button>
+  </div>
+</div>

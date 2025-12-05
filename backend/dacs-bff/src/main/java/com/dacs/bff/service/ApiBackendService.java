@@ -1,6 +1,7 @@
 package com.dacs.bff.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.dacs.bff.dto.AlumnoDto;
 import com.dacs.bff.dto.UsuarioDto;
@@ -36,4 +37,12 @@ public interface ApiBackendService {
 	public void deleteUsuario(Long id) throws Exception;
 
 	public java.util.Map<String, Object> verifyDni(String documentNumber) throws Exception;
+    Map<String, Object> getReparacionById(Long id);
+    Map<String, Object> getReparacionDetails(Long id);
+    Map<String, Object> updateReparacion(Long id, Map<String, Object> reparacionDto);
+    void deleteReparacion(Long id);
+    List<Map<String, Object>> getLineasReparacion(Long id);
+    Map<String, Object> addLineaReparacion(Long id, Map<String, Object> lineaDto);
+    Map<String, Object> updateLineaReparacion(Long id, Map<String, Object> lineaDto);
+    void deleteLineaReparacion(Long id);
 }

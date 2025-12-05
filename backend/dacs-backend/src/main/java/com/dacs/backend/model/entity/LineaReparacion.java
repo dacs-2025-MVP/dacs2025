@@ -1,6 +1,7 @@
 package com.dacs.backend.model.entity;
 
 import java.time.LocalDate;
+import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,8 +20,8 @@ public class LineaReparacion {
     private Long linea_reparacion_id;
 
     private LocalDate fecha;
-    private String responsable;
     private String descripcion;
+    private BigDecimal costo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reparacion_id")

@@ -1,0 +1,143 @@
+<div class="edit-page-container">
+  <div class="page-header">
+    <button class="back-btn" (click)="back()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    </button>
+    <h1>Reparación</h1>
+  </div>
+
+  <div class="edit-card" *ngIf="reparacion">
+    
+    <!-- Dates Section -->
+    <div class="dates-section">
+      <div class="date-row">
+        <label>Fecha de ingreso</label>
+        <div class="date-value">
+          <span *ngIf="editingDate !== 'ingreso'">{{ (reparacion.fechaIngreso | date:'dd/MM/yyyy') || '-' }}</span>
+          <input *ngIf="editingDate === 'ingreso'" type="date" [(ngModel)]="reparacion.fechaIngreso" (blur)="saveReparacion()" />
+        </div>
+        <button class="edit-icon-btn" (click)="toggleDateEdit('ingreso')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+        </button>
+      </div>
+
+      <div class="date-row">
+        <label>Fecha de egreso</label>
+        <div class="date-value">
+          <span *ngIf="editingDate !== 'egreso'">{{ (reparacion.fechaEgreso | date:'dd/MM/yyyy') || '-' }}</span>
+          <input *ngIf="editingDate === 'egreso'" type="date" [(ngModel)]="reparacion.fechaEgreso" (blur)="saveReparacion()" />
+        </div>
+        <button class="edit-icon-btn" (click)="toggleDateEdit('egreso')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Files Section -->
+    <div class="files-section">
+      <!-- Presupuesto -->
+      <div class="file-row">
+        <label>Presupuesto</label>
+        <div class="file-content">
+          <div class="file-box" *ngIf="reparacion.archivo_ocompra_repuestos_pdf">
+            <span class="file-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+            </span>
+            <div class="file-info">
+              <span class="file-name">{{ reparacion.archivo_ocompra_repuestos_pdf }}</span>
+              <span class="file-size">7 KB</span>
+            </div>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+          <button class="delete-btn" *ngIf="reparacion.archivo_ocompra_repuestos_pdf">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Repuestos -->
+      <div class="file-row">
+        <label>Repuestos</label>
+        <div class="file-content-list">
+          <div class="file-item-row" *ngIf="reparacion.factura_repuestos_pdf">
+            <div class="file-box">
+              <span class="file-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+              </span>
+              <div class="file-info">
+                <span class="file-name">{{ reparacion.factura_repuestos_pdf }}</span>
+                <span class="file-size">7 KB</span>
+              </div>
+              <span class="dropdown-arrow">▼</span>
+            </div>
+            <button class="delete-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </button>
+          </div>
+          
+          <button class="upload-btn">Cargar repuesto</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lines Table -->
+    <div class="lines-table-section">
+      <div class="table-header">
+        <div class="th col-index"></div>
+        <div class="th col-date">Fecha</div>
+        <div class="th col-resp">Responsable</div>
+        <div class="th col-detail">Detalle</div>
+        <div class="th col-actions"></div>
+      </div>
+
+      <div class="table-body">
+        <div class="table-row" *ngFor="let line of reparacion.lineasReparacion; let i = index">
+          <div class="td col-index">{{ i + 1 }}</div>
+          <div class="td col-date">{{ line.fecha | date:'dd/MM/yyyy' }}</div>
+          <div class="td col-resp">{{ reparacion.responsable || 'Lucas' }}</div>
+          <div class="td col-detail">{{ line.descripcion || line.detalle }}</div>
+          <div class="td col-actions">
+            <button class="action-btn edit" (click)="editLinea(line)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            </button>
+            <button class="action-btn delete" (click)="deleteLinea(line.linea_reparacion_id || line.id, i)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </button>
+            <button class="action-btn view">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            </button>
+          </div>
+        </div>
+        <div class="no-lines" *ngIf="!reparacion.lineasReparacion || reparacion.lineasReparacion.length === 0">
+          No hay líneas de reparación.
+        </div>
+      </div>
+      
+      <div class="add-line-container">
+         <button class="add-line-btn" (click)="startAddLine()">+ Agregar línea</button>
+      </div>
+    </div>
+
+    <!-- Main Actions -->
+    <div class="main-actions">
+      <button class="btn-confirm" (click)="saveReparacion()">Guardar Cambios</button>
+      <button class="btn-cancel" (click)="back()">Cancelar</button>
+    </div>
+
+  </div>
+
+  <!-- Modal or Inline Edit for Line (Hidden by default) -->
+  <div class="line-edit-modal" *ngIf="isEditingLine || isAddingLine">
+    <div class="modal-content">
+      <h3>{{ isAddingLine ? 'Nueva Línea' : 'Editar Línea' }}</h3>
+      <label>Fecha</label>
+      <input type="date" [(ngModel)]="currentLineDate">
+      <label>Detalle</label>
+      <input type="text" [(ngModel)]="currentLineDetail">
+      <div class="modal-actions">
+        <button (click)="saveCurrentLine()">Guardar</button>
+        <button (click)="cancelLineEdit()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

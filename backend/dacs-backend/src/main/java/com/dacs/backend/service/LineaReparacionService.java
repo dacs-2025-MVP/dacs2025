@@ -10,4 +10,5 @@ public interface LineaReparacionService {
     void delete(Long id);
     LineaReparacionDto findById(Long id);
     List<LineaReparacionDto> findAll();
+    List<LineaReparacionDto> findByReparacionId(Long reparacionId);
 }

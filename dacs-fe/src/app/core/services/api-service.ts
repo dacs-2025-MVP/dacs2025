@@ -191,6 +191,74 @@ export class ApiService extends BaseApiService {
   }
 
   /**
+   * Obtiene el historial de reparaciones para un vehículo
+   */
+  getReparacionesByVehiculo(id: string | number): Observable<IApiResponse<any>> {
+    const endpoint = `${VEHICULOS_ENDPOINTS.LIST}/${id}/reparaciones`;
+    return this.get<IApiResponse<any>>(endpoint);
+  }
+
+  /**
+   * Crea una nueva reparacion para un vehículo
+   */
+  createReparacion(vehicleId: string | number, payload: any): Observable<any> {
+    const endpoint = `${VEHICULOS_ENDPOINTS.LIST}/${vehicleId}/reparaciones`;
+    return this.post<any>(endpoint, payload);
+  }
+
+  /**
+   * Sube un archivo asociado a una reparacion (tipo: presupuesto|repuesto)
+   */
+  uploadReparacionFile(vehicleId: string | number, reparacionId: string | number, file: File, tipo: string): Observable<any> {
+    const endpoint = `${VEHICULOS_ENDPOINTS.LIST}/${vehicleId}/reparaciones/${reparacionId}/files?tipo=${encodeURIComponent(tipo)}`;
+    const fd = new FormData();
+    fd.append('file', file, file.name);
+    return this.upload<any>(endpoint, fd);
+  }
+
+  /**
+   * Agrega una linea a una reparacion existente
+   */
+  addLineaReparacion(reparacionId: string | number, payload: any): Observable<any> {
+    const endpoint = `reparaciones/${reparacionId}/lineas`;
+    return this.post<any>(endpoint, payload);
+  }
+
+  /**
+   * Obtiene una reparacion por id
+   */
+  getReparacionById(id: string | number): Observable<IApiResponse<any>> {
+    const endpoint = `reparaciones/${id}`;
+    return this.get<IApiResponse<any>>(endpoint);
+  }
+
+  /**
+   * Actualiza una reparacion existente
+   */
+  updateReparacion(id: string | number, payload: any): Observable<any> {
+    const endpoint = `reparaciones/${id}`;
+    return this.put<any>(endpoint, payload);
+  }
+
+  /**
+   * Obtiene todas las lineas de reparacion y permite filtrarlas en cliente
+   */
+  getLineasReparacion(): Observable<IApiResponse<any>> {
+    const endpoint = `lineas-reparacion`;
+    return this.get<IApiResponse<any>>(endpoint);
+  }
+
+  updateLineaReparacion(id: string | number, payload: any): Observable<any> {
+    const endpoint = `lineas-reparacion/${id}`;
+    return this.put<any>(endpoint, payload);
+  }
+
+  deleteLineaReparacion(id: string | number): Observable<any> {
+    const endpoint = `lineas-reparacion/${id}`;
+    return this.delete<any>(endpoint);
+  }
+
+  /**
    * Actualiza un vehículo (parcialmente)
    */
   updateVehiculo(id: string | number, payload: any): Observable<any> {

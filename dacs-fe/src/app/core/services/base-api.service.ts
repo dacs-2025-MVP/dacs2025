@@ -108,6 +108,20 @@ export class BaseApiService {
   }
 
   /**
+   * Realiza una subida de archivos (multipart/form-data)
+   */
+  protected upload<T>(endpoint: string, formData: FormData, customTimeout?: number): Observable<T> {
+    const url = this.buildUrl(endpoint);
+    const timeoutValue = customTimeout || HTTP_TIMEOUTS.UPLOAD;
+
+    // Do not set default JSON headers so browser sets the correct multipart boundary
+    return this.http.post<T>(url, formData).pipe(
+      timeout(timeoutValue),
+      catchError(this.handleError.bind(this))
+    );
+  }
+
+  /**
    * Construye la URL completa
    */
   private buildUrl(endpoint: string): string {

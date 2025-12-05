@@ -11,5 +11,6 @@ public class ReparacionDto {
     private LocalDate fecha_egreso;
     private String factura_repuestos_pdf;
     private String archivo_ocompra_repuestos_pdf;
+    private String responsable;
     private Long vehiculoId;
 }

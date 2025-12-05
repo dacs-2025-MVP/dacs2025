@@ -17,6 +17,10 @@ export const routes: Routes = [
   },
   { path: 'vehiculos/new', loadComponent: () => import('./vehiculos/vehiculos-create-page').then(m => m.VehiculosCreatePageComponent), data: { title: 'Nuevo vehículo' } },
   { path: 'vehiculos/view/:id', loadComponent: () => import('./vehiculos/vehiculos-view-page').then(m => m.VehiculosViewPageComponent), data: { title: 'Información del vehículo' } },
+  { path: 'vehiculos/:id/reparaciones', loadComponent: () => import('./vehiculos/historial-reparaciones-page').then(m => m.HistorialReparacionesPageComponent), data: { title: 'Historial de reparaciones' } },
+  { path: 'vehiculos/:id/reparaciones/new', loadComponent: () => import('./reparaciones/reparacion-create-page').then(m => m.ReparacionCreatePageComponent), data: { title: 'Nueva reparación' } },
+  { path: 'vehiculos/:vehiculoId/reparaciones/:id', loadComponent: () => import('./reparaciones/reparacion-edit-page').then(m => m.ReparacionEditPageComponent), data: { title: 'Editar reparación' } },
+  { path: 'vehiculos/:vehiculoId/reparaciones/:id/view', loadComponent: () => import('./reparaciones/reparacion-detail-page').then(m => m.ReparacionDetailPageComponent), data: { title: 'Ver reparación' } },
   { path: 'vehiculos/:id', loadComponent: () => import('./vehiculos/vehiculos-edit-page').then(m => m.VehiculosEditPageComponent), data: { title: 'Modificar vehículo' } },
   { path: 'vehiculos', loadComponent: () => import('./vehiculos/vehiculos-page').then(m => m.VehiculosPageComponent), data: { title: 'Vehículos' } },
   // Clientes page (clients list)

@@ -22,6 +22,7 @@ public class VehiculoServiceImpl implements VehiculoService {
 
     private final VehiculoRepository vehiculoRepository;
     private final UsuarioRepository usuarioRepository;
+    private final com.dacs.backend.service.ReparacionService reparacionService;
 
     @Override
     public VehiculoDto create(VehiculoDto dto) {
@@ -65,6 +66,11 @@ public class VehiculoServiceImpl implements VehiculoService {
     @Override
     public List<VehiculoDto> findAll() {
         return vehiculoRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public java.util.List<com.dacs.backend.dto.ReparacionDto> findReparacionesByVehiculo(Long vehiculoId) {
+        return reparacionService.findByVehiculoId(vehiculoId);
     }
 
     private VehiculoDto toDto(Vehiculo v) {

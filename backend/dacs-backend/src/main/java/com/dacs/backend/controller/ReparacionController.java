@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class ReparacionController {
 
     private final ReparacionService reparacionService;
+    private final com.dacs.backend.service.LineaReparacionService lineaService;
 
     @PostMapping
     public ResponseEntity<ReparacionDto> create(@RequestBody ReparacionDto dto) {
@@ -42,7 +43,18 @@ public class ReparacionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ReparacionDto> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(reparacionService.findById(id));
+        return ResponseEntity.ok(reparacionService.getReparacionDetails(id));
+    }
+
+    @GetMapping("/{id}/lineas")
+    public ResponseEntity<java.util.List<com.dacs.backend.dto.LineaReparacionDto>> getLineas(@PathVariable Long id) {
+        return ResponseEntity.ok(lineaService.findByReparacionId(id));
+    }
+
+    @PostMapping("/{id}/lineas")
+    public ResponseEntity<com.dacs.backend.dto.LineaReparacionDto> createLinea(@PathVariable Long id, @RequestBody com.dacs.backend.dto.LineaReparacionDto dto) {
+        dto.setReparacionId(id);
+        return ResponseEntity.ok(lineaService.create(dto));
     }
 
     @GetMapping

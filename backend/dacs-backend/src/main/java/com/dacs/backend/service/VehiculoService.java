@@ -10,4 +10,6 @@ public interface VehiculoService {
     void delete(Long id);
     VehiculoDto findById(Long id);
     List<VehiculoDto> findAll();
+    // Obtener reparaciones asociadas a un vehículo
+    java.util.List<com.dacs.backend.dto.ReparacionDto> findReparacionesByVehiculo(Long vehiculoId);
 }

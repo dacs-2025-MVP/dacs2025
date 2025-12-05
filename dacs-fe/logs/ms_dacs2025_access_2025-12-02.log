@@ -1,0 +1,8 @@
+[02/Dec/2025:16:59:16 -0300] 127.0.0.1 "GET /backend/usuarios HTTP/1.1" 200 (872007 ms)
+[02/Dec/2025:17:03:02 -0300] 127.0.0.1 "POST /backend/usuarios HTTP/1.1" 200 (766616 ms)
+[02/Dec/2025:17:03:04 -0300] 127.0.0.1 "GET /backend/usuarios HTTP/1.1" 200 (82179 ms)
+[02/Dec/2025:17:03:09 -0300] 127.0.0.1 "GET /backend/usuarios/app-users HTTP/1.1" 200 (113612 ms)
+[02/Dec/2025:17:03:11 -0300] 127.0.0.1 "GET /backend/usuarios/available-for-user HTTP/1.1" 200 (70044 ms)
+[02/Dec/2025:17:03:15 -0300] 127.0.0.1 "POST /backend/usuarios/create-user HTTP/1.1" 200 (203292 ms)
+[02/Dec/2025:17:03:19 -0300] 127.0.0.1 "POST /backend/usuarios/create-user HTTP/1.1" 200 (48777 ms)
+[02/Dec/2025:17:03:20 -0300] 127.0.0.1 "GET /backend/usuarios/app-users HTTP/1.1" 200 (61859 ms)

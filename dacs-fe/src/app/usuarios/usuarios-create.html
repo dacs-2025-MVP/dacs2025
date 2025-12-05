@@ -29,7 +29,7 @@
     </div>
 
     <div class="create-actions">
-      <button class="save-btn" (click)="createUser()" [disabled]="creating">{{ creating ? 'Creando...' : 'Crear' }}</button>
+      <button class="save-btn" (click)="createUser()" [disabled]="creating || !!createdCredentials">{{ creating ? 'Creando...' : (createdCredentials ? 'Creado' : 'Crear') }}</button>
       <button class="cancel-btn" (click)="backToList()">Volver</button>
     </div>
   </div>

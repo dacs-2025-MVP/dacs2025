@@ -30,14 +30,14 @@
             <span class="label">Clientes</span>
           </a>
 
-          <a class="option-btn" routerLink="/turnos" *ngIf="canAccess()">
+          <div class="option-btn disabled" *ngIf="canAccess()" data-tooltip="no implementado en el MVP">
             <!-- Calendar / Turnos icon -->
             <svg class="option-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
               <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
               <path d="M16 3v4M8 3v4M3 11h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
             <span class="label">Turnos</span>
-          </a>
+          </div>
 
           <a class="option-btn" routerLink="/usuarios" *ngIf="canAccess()">
             <!-- Users icon -->

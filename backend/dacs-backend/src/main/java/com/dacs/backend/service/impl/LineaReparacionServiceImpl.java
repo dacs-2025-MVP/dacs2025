@@ -27,8 +27,8 @@ public class LineaReparacionServiceImpl implements LineaReparacionService {
     public LineaReparacionDto create(LineaReparacionDto dto) {
         LineaReparacion l = new LineaReparacion();
         l.setFecha(dto.getFecha());
-        l.setResponsable(dto.getResponsable());
         l.setDescripcion(dto.getDescripcion());
+        l.setCosto(dto.getCosto());
         if (dto.getReparacionId() != null) {
             Reparacion r = reparacionRepo.findById(dto.getReparacionId()).orElse(null);
             l.setReparacion(r);
@@ -40,8 +40,8 @@ public class LineaReparacionServiceImpl implements LineaReparacionService {
     public LineaReparacionDto update(Long id, LineaReparacionDto dto) {
         LineaReparacion l = lineaRepo.findById(id).orElseThrow();
         l.setFecha(dto.getFecha());
-        l.setResponsable(dto.getResponsable());
         l.setDescripcion(dto.getDescripcion());
+        l.setCosto(dto.getCosto());
         if (dto.getReparacionId() != null) {
             Reparacion r = reparacionRepo.findById(dto.getReparacionId()).orElse(null);
             l.setReparacion(r);
@@ -64,12 +64,17 @@ public class LineaReparacionServiceImpl implements LineaReparacionService {
         return lineaRepo.findAll().stream().map(this::toDto).collect(Collectors.toList());
     }
 
+    @Override
+    public List<LineaReparacionDto> findByReparacionId(Long reparacionId) {
+        return lineaRepo.findByReparacionId(reparacionId).stream().map(this::toDto).collect(Collectors.toList());
+    }
+
     private LineaReparacionDto toDto(LineaReparacion l) {
         LineaReparacionDto d = new LineaReparacionDto();
         d.setLinea_reparacion_id(l.getLinea_reparacion_id());
         d.setFecha(l.getFecha());
-        d.setResponsable(l.getResponsable());
         d.setDescripcion(l.getDescripcion());
+        d.setCosto(l.getCosto());
         d.setReparacionId(l.getReparacion() != null ? l.getReparacion().getReparacion_id() : null);
         return d;
     }

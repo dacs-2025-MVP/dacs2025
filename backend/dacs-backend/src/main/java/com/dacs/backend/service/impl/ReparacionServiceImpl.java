@@ -12,6 +12,8 @@ import com.dacs.backend.model.entity.Vehiculo;
 import com.dacs.backend.model.repository.ReparacionRepository;
 import com.dacs.backend.model.repository.VehiculoRepository;
 import com.dacs.backend.service.ReparacionService;
+import com.dacs.backend.service.LineaReparacionService;
+import com.dacs.backend.dto.ReparacionDetailDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,12 +24,14 @@ public class ReparacionServiceImpl implements ReparacionService {
 
     private final ReparacionRepository reparacionRepository;
     private final VehiculoRepository vehiculoRepository;
+    private final LineaReparacionService lineaReparacionService;
 
     @Override
     public ReparacionDto create(ReparacionDto dto) {
         Reparacion r = new Reparacion();
         r.setFecha_ingreso(dto.getFecha_ingreso());
         r.setFecha_egreso(dto.getFecha_egreso());
+        r.setResponsable(dto.getResponsable());
         r.setFactura_repuestos_pdf(dto.getFactura_repuestos_pdf());
         r.setArchivo_ocompra_repuestos_pdf(dto.getArchivo_ocompra_repuestos_pdf());
         if (dto.getVehiculoId() != null) {
@@ -42,6 +46,7 @@ public class ReparacionServiceImpl implements ReparacionService {
         Reparacion r = reparacionRepository.findById(id).orElseThrow();
         r.setFecha_ingreso(dto.getFecha_ingreso());
         r.setFecha_egreso(dto.getFecha_egreso());
+        r.setResponsable(dto.getResponsable());
         r.setFactura_repuestos_pdf(dto.getFactura_repuestos_pdf());
         r.setArchivo_ocompra_repuestos_pdf(dto.getArchivo_ocompra_repuestos_pdf());
         if (dto.getVehiculoId() != null) {
@@ -66,6 +71,27 @@ public class ReparacionServiceImpl implements ReparacionService {
         return reparacionRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
     }
 
+    @Override
+    public List<ReparacionDto> findByVehiculoId(Long vehiculoId) {
+        java.util.List<Reparacion> list = reparacionRepository.findByVehiculoId(vehiculoId);
+        return list.stream().map(this::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public ReparacionDetailDTO getReparacionDetails(Long id) {
+        Reparacion reparacion = reparacionRepository.findById(id).orElseThrow();
+        ReparacionDetailDTO detailDTO = new ReparacionDetailDTO();
+        detailDTO.setReparacion_id(reparacion.getReparacion_id());
+        detailDTO.setFecha_ingreso(reparacion.getFecha_ingreso());
+        detailDTO.setFecha_egreso(reparacion.getFecha_egreso());
+        detailDTO.setResponsable(reparacion.getResponsable());
+        detailDTO.setFactura_repuestos_pdf(reparacion.getFactura_repuestos_pdf());
+        detailDTO.setArchivo_ocompra_repuestos_pdf(reparacion.getArchivo_ocompra_repuestos_pdf());
+        detailDTO.setVehiculoId(reparacion.getVehiculo() != null ? reparacion.getVehiculo().getVehiculo_id() : null);
+        detailDTO.setLineasReparacion(lineaReparacionService.findByReparacionId(id));
+        return detailDTO;
+    }
+
     private ReparacionDto toDto(Reparacion r) {
         ReparacionDto d = new ReparacionDto();
         d.setReparacion_id(r.getReparacion_id());
@@ -73,6 +99,7 @@ public class ReparacionServiceImpl implements ReparacionService {
         d.setFecha_egreso(r.getFecha_egreso());
         d.setFactura_repuestos_pdf(r.getFactura_repuestos_pdf());
         d.setArchivo_ocompra_repuestos_pdf(r.getArchivo_ocompra_repuestos_pdf());
+        d.setResponsable(r.getResponsable());
         d.setVehiculoId(r.getVehiculo() != null ? r.getVehiculo().getVehiculo_id() : null);
         return d;
     }

@@ -49,4 +49,9 @@ public class VehiculoController {
     public ResponseEntity<List<VehiculoDto>> getAll() {
         return ResponseEntity.ok(vehiculoService.findAll());
     }
+
+    @GetMapping("/{id}/reparaciones")
+    public ResponseEntity<java.util.List<com.dacs.backend.dto.ReparacionDto>> getReparacionesByVehiculo(@PathVariable Long id) {
+        return ResponseEntity.ok(vehiculoService.findReparacionesByVehiculo(id));
+    }
 }

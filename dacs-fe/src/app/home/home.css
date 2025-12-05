@@ -91,6 +91,36 @@
   box-shadow: 0 8px 18px rgba(43, 142, 214, 0.18);
 }
 
+.option-btn.disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  position: relative;
+}
+
+.option-btn.disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.option-btn.disabled:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  margin-bottom: 5px;
+  z-index: 10;
+  pointer-events: none;
+}
+
 @media (max-width: 600px){
   .home-shell{
     max-width: 92%;

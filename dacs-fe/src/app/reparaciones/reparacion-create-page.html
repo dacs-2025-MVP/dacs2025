@@ -1,0 +1,141 @@
+<div class="edit-page-container">
+  <div class="page-header">
+    <button class="back-btn" (click)="cancel()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    </button>
+    <h1>Nueva Reparación</h1>
+  </div>
+
+  <div class="edit-card">
+    
+    <!-- Dates Section -->
+    <div class="dates-section">
+      <div class="date-row">
+        <label>Fecha de ingreso</label>
+        <div class="date-value">
+          <input type="date" [(ngModel)]="fechaIngreso" />
+        </div>
+      </div>
+
+      <div class="date-row">
+        <label>Fecha de egreso</label>
+        <div class="date-value">
+          <input type="date" [(ngModel)]="fechaEgreso" />
+        </div>
+      </div>
+
+      <div class="date-row">
+        <label>Responsable</label>
+        <div class="date-value">
+          <input type="text" [(ngModel)]="responsable" placeholder="Nombre del responsable" style="padding: 5px; border: 1px solid #dadce0; border-radius: 4px;" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Files Section -->
+    <div class="files-section">
+      <!-- Presupuesto -->
+      <div class="file-row">
+        <label>Presupuesto</label>
+        <div class="file-content-list">
+          <div class="file-item-row" *ngFor="let f of presupuestoFiles; let i = index">
+            <div class="file-box">
+              <span class="file-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+              </span>
+              <div class="file-info">
+                <span class="file-name">{{ f.name }}</span>
+                <span class="file-size">{{ (f.size / 1024).toFixed(1) }} KB</span>
+              </div>
+            </div>
+            <button class="delete-btn" (click)="removePresupuesto(i)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </button>
+          </div>
+          
+          <div style="position: relative; display: inline-block;">
+            <button class="upload-btn" (click)="presupuestoInput.click()">Cargar presupuesto</button>
+            <input #presupuestoInput type="file" (change)="onPresupuestoFilesChange($event)" multiple style="display: none;" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Repuestos -->
+      <div class="file-row">
+        <label>Repuestos</label>
+        <div class="file-content-list">
+          <div class="file-item-row" *ngFor="let f of repuestosFiles; let i = index">
+            <div class="file-box">
+              <span class="file-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+              </span>
+              <div class="file-info">
+                <span class="file-name">{{ f.name }}</span>
+                <span class="file-size">{{ (f.size / 1024).toFixed(1) }} KB</span>
+              </div>
+            </div>
+            <button class="delete-btn" (click)="removeRepuesto(i)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </button>
+          </div>
+          
+          <div style="position: relative; display: inline-block;">
+            <button class="upload-btn" (click)="repuestosInput.click()">Cargar repuesto</button>
+            <input #repuestosInput type="file" (change)="onRepuestosFilesChange($event)" multiple style="display: none;" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lines Table -->
+    <div class="lines-table-section">
+      <div class="table-header">
+        <div class="th col-index"></div>
+        <div class="th col-date">Fecha</div>
+        <div class="th col-resp">Responsable</div>
+        <div class="th col-detail">Detalle</div>
+        <div class="th col-actions"></div>
+      </div>
+
+      <div class="table-body">
+        <div class="table-row" *ngFor="let line of lineas; let i = index">
+          <div class="td col-index">{{ i + 1 }}</div>
+          <div class="td col-date">
+             <span *ngIf="!line.editing">{{ line.fecha | date:'dd/MM/yyyy' }}</span>
+             <input *ngIf="line.editing" type="date" [(ngModel)]="line.fecha" />
+          </div>
+          <div class="td col-resp">{{ responsable || '-' }}</div>
+          <div class="td col-detail">
+             <span *ngIf="!line.editing">{{ line.detalle }}</span>
+             <input *ngIf="line.editing" type="text" [(ngModel)]="line.detalle" style="width: 100%; padding: 4px;" />
+          </div>
+          <div class="td col-actions">
+            <button class="action-btn edit" *ngIf="!line.editing" (click)="editLinea(i)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            </button>
+            <button class="action-btn edit" *ngIf="line.editing" (click)="saveLinea(i)">
+               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </button>
+            <button class="action-btn delete" (click)="deleteLinea(i)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </button>
+          </div>
+        </div>
+        <div class="no-lines" *ngIf="lineas.length === 0">
+          No hay líneas de reparación.
+        </div>
+      </div>
+      
+      <div class="add-line-container">
+         <button class="add-line-btn" (click)="addLinea()">+ Agregar línea</button>
+      </div>
+    </div>
+
+    <!-- Main Actions -->
+    <div class="main-actions">
+      <button class="btn-confirm" (click)="save()" [disabled]="saving">Guardar Reparación</button>
+      <button class="btn-cancel" (click)="cancel()">Cancelar</button>
+    </div>
+
+  </div>
+</div>

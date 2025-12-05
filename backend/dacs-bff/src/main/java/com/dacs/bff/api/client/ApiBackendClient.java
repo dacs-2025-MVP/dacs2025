@@ -71,6 +71,37 @@ public interface ApiBackendClient {
         @GetMapping("/vehiculos/{id}")
         java.util.Map<String, Object> vehiculoById(@PathVariable("id") Long id);
 
+        @GetMapping("/reparaciones/{id}")
+        java.util.Map<String, Object> getReparacionById(@PathVariable("id") Long id);
+
+        @GetMapping("/reparaciones/{id}/details")
+        java.util.Map<String, Object> getReparacionDetails(@PathVariable("id") Long id);
+
+        @PutMapping("/reparaciones/{id}")
+        java.util.Map<String, Object> updateReparacion(@PathVariable("id") Long id, @RequestBody java.util.Map<String, Object> reparacionDto);
+
+        @DeleteMapping("/reparaciones/{id}")
+        void deleteReparacion(@PathVariable("id") Long id);
+
+        @GetMapping("/reparaciones/{id}/lineas")
+        java.util.List<java.util.Map<String, Object>> getLineasReparacion(@PathVariable("id") Long id);
+
+        @PostMapping("/reparaciones/{id}/lineas")
+        java.util.Map<String, Object> addLineaReparacion(@PathVariable("id") Long id, @RequestBody java.util.Map<String, Object> lineaDto);
+
+        @PutMapping("/lineas-reparacion/{id}")
+        java.util.Map<String, Object> updateLineaReparacion(@PathVariable("id") Long id, @RequestBody java.util.Map<String, Object> lineaDto);
+
+        @DeleteMapping("/lineas-reparacion/{id}")
+        void deleteLineaReparacion(@PathVariable("id") Long id);
+
+        @GetMapping("/vehiculos/{id}/reparaciones")
+        java.util.List<java.util.Map<String, Object>> reparacionesByVehiculo(@PathVariable("id") Long id);
+
+        // Create reparacion in backend (payload should contain vehiculoId and dates etc.)
+        @PostMapping("/reparaciones")
+        java.util.Map<String, Object> createReparacion(@RequestBody java.util.Map<String, Object> reparacionDto);
+
         @PostMapping("/vehiculos")
         java.util.Map<String, Object> saveVehiculo(@RequestBody java.util.Map<String, Object> vehiculo);
 
