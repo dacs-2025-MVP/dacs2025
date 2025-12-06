@@ -18,8 +18,8 @@ export class BaseApiService {
   protected readonly defaultHeaders: HttpHeaders;
 
   constructor(protected http: HttpClient) {
-    // Asegurar que la URL base sea absoluta
-    this.baseUrl = environment.backendForFrontendUrl.startsWith('http') 
+    // Asegurar que la URL base sea absoluta o relativa
+    this.baseUrl = (environment.backendForFrontendUrl.startsWith('http') || environment.backendForFrontendUrl.startsWith('/'))
       ? environment.backendForFrontendUrl 
       : `http://${environment.backendForFrontendUrl}`;
     
